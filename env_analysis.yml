@@ -1,0 +1,26 @@
+name: ad_mtdl_analysis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - umap-learn==0.5.9.post2
+    - rdkit==2026.3.2
+    - numpy==2.4.4
+    - pandas==3.0.3
+    - matplotlib==3.10.9
+    - seaborn==0.13.2
+    - scikit-learn==1.8.0
+    - scipy==1.17.1
+    - tqdm==4.67.3
+
+# Usage:
+#   conda env create -f env_analysis.yml
+#   conda activate ad_mtdl_analysis
+#
+# Role: chemical space analysis and visualisation only.
+# Used for UMAP plots (umap_chemical_space.py) — not required for
+# training, generation, or docking. Can be run on any machine with
+# the generated compound CSVs and AD_MTDL_combined_chembl36.csv.

@@ -1,0 +1,33 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment / package management
+*.egg-info/
+.eggs/
+env/
+venv/
+.venv/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs — large per-step RL logs not intended for version control
+# (retain reinvent.log files intentionally if you want them archived;
+#  uncomment the line below only if you decide NOT to track them)
+# *.log
+
+# Local scratch / temp outputs not part of the reported pipeline
+*.tmp
+tmp/
+scratch/

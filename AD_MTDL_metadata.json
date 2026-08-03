@@ -1,0 +1,243 @@
+{
+  "project": "AD-MTDL Multi-task ChemProp Classifier",
+  "created": "2026-05-31 04:11:18",
+  "chemprop_version": "2.2.3",
+  "random_seed": 42,
+  "targets": [
+    "AChE_class",
+    "BuChE_class",
+    "BACE1_class",
+    "MAO_B_class"
+  ],
+  "label_scheme": {
+    "Active": 1,
+    "Inactive": 0,
+    "Moderate": "excluded (NaN \u2014 not used in training)"
+  },
+  "data_filters": {
+    "source": "ChEMBL 36",
+    "assay_type": [
+      "B",
+      "F"
+    ],
+    "confidence_score": ">=8",
+    "standard_relation": "=",
+    "pchembl_not_null": true,
+    "potential_duplicate": 0,
+    "deduplication": "median pChEMBL per unique compound",
+    "active_threshold": "pChEMBL >= 7.0",
+    "inactive_threshold": "pChEMBL < 5.0",
+    "moderate_excluded": "5.0 <= pChEMBL < 7.0"
+  },
+  "split": {
+    "method": "scaffold_balanced",
+    "sizes": [
+      0.8,
+      0.1,
+      0.1
+    ],
+    "train_n": 9039,
+    "val_n": 1129,
+    "test_n": 1129
+  },
+  "architecture": {
+    "model": "MPNN (ChemProp v2)",
+    "message_passing": "BondMessagePassing",
+    "aggregation": "MeanAggregation",
+    "ffn_hidden": 300,
+    "ffn_layers": 2,
+    "dropout": 0.1,
+    "batch_norm": true,
+    "n_tasks": 4,
+    "total_params": 410104
+  },
+  "training": {
+    "loss": "WeightedBCELoss (BCEWithLogitsLoss + per-task pos_weight)",
+    "pos_weights": {
+      "AChE_class": 0.7754,
+      "BuChE_class": 0.7967,
+      "BACE1_class": 0.2,
+      "MAO_B_class": 1.1653
+    },
+    "max_epochs": 75,
+    "early_stopping": "patience=15, monitor=val/prc",
+    "best_epoch": 36,
+    "best_val_prc": 0.9783940315246582
+  },
+  "threshold_optimization": {
+    "method": "Youden-MCC sweep on val set (threshold in [0.05, 0.95], step=0.01)",
+    "metric": "MCC maximization"
+  },
+  "optimal_thresholds": {
+    "AChE_class": 0.59,
+    "BuChE_class": 0.68,
+    "BACE1_class": 0.6,
+    "MAO_B_class": 0.51
+  },
+  "metrics": {
+    "val": {
+      "AChE_class": {
+        "n_compounds": 196,
+        "n_active": 103,
+        "n_inactive": 93,
+        "threshold": 0.59,
+        "AUROC": 0.9353,
+        "AUPRC": 0.9366,
+        "MCC": 0.8063,
+        "Accuracy": 0.9031,
+        "F1_macro": 0.9029,
+        "F1_weighted": 0.9031,
+        "Precision_pos": 0.92,
+        "Recall_pos": 0.8932,
+        "confusion_matrix": {
+          "TN": 85,
+          "FP": 8,
+          "FN": 11,
+          "TP": 92
+        }
+      },
+      "BuChE_class": {
+        "n_compounds": 122,
+        "n_active": 62,
+        "n_inactive": 60,
+        "threshold": 0.68,
+        "AUROC": 0.9938,
+        "AUPRC": 0.9941,
+        "MCC": 0.9182,
+        "Accuracy": 0.959,
+        "F1_macro": 0.959,
+        "F1_weighted": 0.959,
+        "Precision_pos": 0.9672,
+        "Recall_pos": 0.9516,
+        "confusion_matrix": {
+          "TN": 58,
+          "FP": 2,
+          "FN": 3,
+          "TP": 59
+        }
+      },
+      "BACE1_class": {
+        "n_compounds": 554,
+        "n_active": 479,
+        "n_inactive": 75,
+        "threshold": 0.6,
+        "AUROC": 0.9838,
+        "AUPRC": 0.9972,
+        "MCC": 0.8441,
+        "Accuracy": 0.9639,
+        "F1_macro": 0.922,
+        "F1_weighted": 0.9637,
+        "Precision_pos": 0.9771,
+        "Recall_pos": 0.9812,
+        "confusion_matrix": {
+          "TN": 64,
+          "FP": 11,
+          "FN": 9,
+          "TP": 470
+        }
+      },
+      "MAO_B_class": {
+        "n_compounds": 302,
+        "n_active": 131,
+        "n_inactive": 171,
+        "threshold": 0.51,
+        "AUROC": 0.8636,
+        "AUPRC": 0.8335,
+        "MCC": 0.6154,
+        "Accuracy": 0.8113,
+        "F1_macro": 0.8077,
+        "F1_weighted": 0.8112,
+        "Precision_pos": 0.7846,
+        "Recall_pos": 0.7786,
+        "confusion_matrix": {
+          "TN": 143,
+          "FP": 28,
+          "FN": 29,
+          "TP": 102
+        }
+      }
+    },
+    "test": {
+      "AChE_class": {
+        "n_compounds": 306,
+        "n_active": 195,
+        "n_inactive": 111,
+        "threshold": 0.59,
+        "AUROC": 0.9281,
+        "AUPRC": 0.963,
+        "MCC": 0.7202,
+        "Accuracy": 0.866,
+        "F1_macro": 0.8584,
+        "F1_weighted": 0.8674,
+        "Precision_pos": 0.9231,
+        "Recall_pos": 0.8615,
+        "confusion_matrix": {
+          "TN": 97,
+          "FP": 14,
+          "FN": 27,
+          "TP": 168
+        }
+      },
+      "BuChE_class": {
+        "n_compounds": 173,
+        "n_active": 95,
+        "n_inactive": 78,
+        "threshold": 0.68,
+        "AUROC": 0.9651,
+        "AUPRC": 0.9602,
+        "MCC": 0.8837,
+        "Accuracy": 0.9422,
+        "F1_macro": 0.9413,
+        "F1_weighted": 0.942,
+        "Precision_pos": 0.9293,
+        "Recall_pos": 0.9684,
+        "confusion_matrix": {
+          "TN": 71,
+          "FP": 7,
+          "FN": 3,
+          "TP": 92
+        }
+      },
+      "BACE1_class": {
+        "n_compounds": 531,
+        "n_active": 474,
+        "n_inactive": 57,
+        "threshold": 0.6,
+        "AUROC": 0.9856,
+        "AUPRC": 0.9983,
+        "MCC": 0.8066,
+        "Accuracy": 0.9623,
+        "F1_macro": 0.9032,
+        "F1_weighted": 0.9626,
+        "Precision_pos": 0.9809,
+        "Recall_pos": 0.9768,
+        "confusion_matrix": {
+          "TN": 48,
+          "FP": 9,
+          "FN": 11,
+          "TP": 463
+        }
+      },
+      "MAO_B_class": {
+        "n_compounds": 187,
+        "n_active": 97,
+        "n_inactive": 90,
+        "threshold": 0.51,
+        "AUROC": 0.8532,
+        "AUPRC": 0.877,
+        "MCC": 0.5354,
+        "Accuracy": 0.7647,
+        "F1_macro": 0.7645,
+        "F1_weighted": 0.7643,
+        "Precision_pos": 0.8118,
+        "Recall_pos": 0.7113,
+        "confusion_matrix": {
+          "TN": 74,
+          "FP": 16,
+          "FN": 28,
+          "TP": 69
+        }
+      }
+    }
+  }
+}

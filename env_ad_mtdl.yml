@@ -1,0 +1,34 @@
+name: ad_mtdl
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - chemprop==2.2.3
+    - torch==2.12.0+cpu
+    - torchvision==0.27.0+cpu
+    - torchaudio==2.11.0+cpu
+    - pytorch-lightning==2.6.5
+    - torchmetrics==1.9.0
+    - rdkit==2026.3.2
+    - numpy==2.4.4
+    - pandas==3.0.3
+    - pandas-flavor==0.8.1
+    - scipy==1.17.1
+    - scikit-learn==1.8.0
+    - aiohttp==3.13.5
+    - requests==2.34.2
+    - tqdm==4.67.3
+    - flask==3.1.3
+    - werkzeug==3.1.8
+
+# Usage:
+#   conda env create -f env_ad_mtdl.yml
+#   conda activate ad_mtdl
+#
+# Role: ChemProp v2 classifier training, inference, and Flask scoring server.
+# scoring_server.py loads AD_MTDL_best.ckpt and serves predictions via
+# HTTP POST to localhost:8765, called by comp_ad_mtdl.py in the reinvent4 env.
+# CPU-only PyTorch — remove +cpu suffix and add cudatoolkit if GPU available.

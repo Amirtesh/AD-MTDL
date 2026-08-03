@@ -1,0 +1,6 @@
+campaign,seed_smiles,target_1,target_2,selection_criterion,
+single_AChE,COc1ccc(C(=O)c2ccc(CN(C)Cc3ccccc3)cc2)cc1OC,AChE,,Manually selected from moderate-activity zone,
+single_BuChE,C=CCOc1ccc(CCNCc2cccc(OCc3ccccc3)c2)cc1,BuChE,,Moderate for BuChE; not Active for others (select_seeds.py, MaxMin diversity)
+single_BACE1,C=C1C[C@@](C)(c2cncc(NC(=O)c3ncc(C(F)(F)F)cc3Cl)c2)N=C(N)S1,BACE1,,Moderate for BACE1; not Active for others (select_seeds.py, MaxMin diversity)
+single_MAO_B,C#CCN(C)C1=C(Cl)C(=O)c2ccccc2C1=O,MAO_B,,Moderate for MAO_B; not Active for others (select_seeds.py, MaxMin diversity)
+dual_AChE_BACE1,COc1cc(/C=N/NC(=O)N2CCN(c3ccccn3)CC2)cc(OC)c1OC,AChE,BACE1,Manually selected from moderate-activity zone (both AChE and BACE1),

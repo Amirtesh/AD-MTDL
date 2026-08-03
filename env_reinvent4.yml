@@ -1,0 +1,31 @@
+name: reinvent4
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - reinvent==4.7.15
+    - chemprop==1.5.2
+    - torch==2.9.1+cpu
+    - torchvision==0.24.1+cpu
+    - rdkit==2026.3.2
+    - numpy==1.26.4
+    - pandas==2.3.3
+    - pandas-flavor==0.8.1
+    - scipy==1.15.3
+    - scikit-learn==1.7.2
+    - matplotlib==3.10.9
+    - seaborn==0.13.2
+    - requests==2.34.2
+    - tqdm==4.67.3
+
+# Usage:
+#   conda env create -f env_reinvent4.yml
+#   conda activate reinvent4
+#
+# Role: REINVENT4 RL generation environment.
+# Contains ChemProp 1.5.2 (required by REINVENT4 4.x scoring components)
+# and comp_ad_mtdl.py contrib plugin which calls scoring_server.py via HTTP.
+# CPU-only PyTorch — remove +cpu suffix and add cudatoolkit if GPU available.
