@@ -12,7 +12,7 @@ The pipeline has three stages:
 
 1. **Classification** — A multi-task D-MPNN trained on ChEMBL 36 data predicts activity probability for all four targets simultaneously.
 2. **Generation** — REINVENT4 uses reinforcement learning (Mol2Mol, DAP strategy) to optimize molecules toward high classifier scores, subject to drug-likeness constraints (QED, SA score, molecular weight, custom structural alerts).
-3. **Analysis** — Generated compounds are evaluated by classifier re-scoring and chemical space analysis (UMAP). Molecular docking (GNINA) was performed during the project but is archived as supplementary material and is not part of the reported pipeline scope.
+3. **Analysis** — Generated compounds are evaluated by classifier re-scoring and chemical space analysis (UMAP).
 
 ---
 
