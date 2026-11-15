@@ -1,0 +1,166 @@
+chembl_id,canonical_smiles,pref_name,max_phase,phase_label,source
+CHEMBL1104,CC[N+](C)(C)c1cccc(O)c1,EDROPHONIUM,4,Approved,known_inhibitor
+CHEMBL1115,CN(C)C(=O)Oc1ccc[n+](C)c1,PYRIDOSTIGMINE,4,Approved,known_inhibitor
+CHEMBL1652,CC[N+](CC)(CCNC(=O)C(=O)NCC[N+](CC)(CC)Cc1ccccc1Cl)Cc1ccccc1Cl,AMBENONIUM,4,Approved,known_inhibitor
+CHEMBL167150,COP(=O)(OC)C(O)C(Cl)(Cl)Cl,TRICHLORFON,2,Phase 2,known_inhibitor
+CHEMBL278020,CN(C)C(=O)Oc1cccc([N+](C)(C)C)c1,NEOSTIGMINE,4,Approved,known_inhibitor
+CHEMBL395280,C/C=C1\[C@H]2C=C(C)C[C@]1(N)c1ccc(=O)[nH]c1C2,HUPERZINE A,2,Phase 2,known_inhibitor
+CHEMBL433041,CCCCCCCNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)[C@@H]1N2C,EPTASTIGMINE,2,Phase 2,known_inhibitor
+CHEMBL502,COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccc3)CC1)C2,DONEPEZIL,4,Approved,known_inhibitor
+CHEMBL636,CCN(C)C(=O)Oc1cccc([C@H](C)N(C)C)c1,RIVASTIGMINE,4,Approved,known_inhibitor
+CHEMBL659,COc1ccc2c3c1O[C@H]1C[C@@H](O)C=C[C@@]31CCN(C)C2,GALANTAMINE,4,Approved,known_inhibitor
+CHEMBL94,CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)[C@@H]1N2C,PHYSOSTIGMINE,3,Phase 3,known_inhibitor
+CHEMBL95,Nc1c2c(nc3ccccc13)CCCC2,TACRINE,4,Approved,known_inhibitor
+CHEMBL807,CC12CC3CC(C)(C1)CC(N)(C3)C2,MEMANTINE,4,Approved,clinical_activity
+CHEMBL1678,COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccc3)CC1)C2.Cl,DONEPEZIL HYDROCHLORIDE,4,Approved,clinical_activity
+CHEMBL709,COc1cc2nc(N(C)CCCNC(=O)C3CCCO3)nc(N)c2cc1OC,ALFUZOSIN,4,Approved,clinical_activity
+CHEMBL211471,CN(C)C(=O)Oc1cccc([N+](C)(C)C)c1.COS(=O)(=O)[O-],NEOSTIGMINE METHYLSULFATE,4,Approved,clinical_activity
+CHEMBL887,C#CCN[C@@H]1CCc2ccccc21,RASAGILINE,4,Approved,clinical_activity
+CHEMBL333826,Cc1cc(N)c2ccccc2[n+]1CCCCCCCCCC[n+]1c(C)cc(N)c2ccccc21,DEQUALINIUM,4,Approved,clinical_activity
+CHEMBL481,CCc1c2c(nc3ccc(OC(=O)N4CCC(N5CCCCC5)CC4)cc13)-c1cc3c(c(=O)n1C2)COC(=O)[C@]3(O)CC,IRINOTECAN,4,Approved,clinical_activity
+CHEMBL1677,Cl.Nc1c2c(nc3ccccc13)CCCC2,TACRINE HYDROCHLORIDE,4,Approved,clinical_activity
+CHEMBL1201196,Clc1ccc(C(Cn2ccnc2)OCc2csc3c(Cl)cccc23)c(Cl)c1,SERTACONAZOLE,4,Approved,clinical_activity
+CHEMBL295124,COc1ccc2cc3[n+](cc2c1OC)CCc1cc2c(cc1-3)OCO2,BERBERINE,4,Approved,clinical_activity
+CHEMBL1025,CC(C)OP(=O)(F)OC(C)C,ISOFLUROPHATE,4,Approved,clinical_activity
+CHEMBL41,CNCCC(Oc1ccc(C(F)(F)F)cc1)c1ccccc1,FLUOXETINE,4,Approved,clinical_activity
+CHEMBL1201349,C[N+](C)(CCCCCC[N+](C)(C)C1c2ccccc2-c2ccccc21)C1c2ccccc2-c2ccccc21,HEXAFLUORENIUM,4,Approved,clinical_activity
+CHEMBL1201217,CCCCOc1ccc(C(=O)CCN2CCCCC2)cc1,DYCLONINE,4,Approved,clinical_activity
+CHEMBL1128,CC[N+](C)(C)c1cccc(O)c1.[Cl-],EDROPHONIUM CHLORIDE,4,Approved,clinical_activity
+CHEMBL1206,CCN(CC)C(C)CN1c2ccccc2Sc2ccccc21,ETHOPROPAZINE,4,Approved,clinical_activity
+CHEMBL812,CN(C)C(=O)Oc1ccc[n+](C)c1.[Br-],PYRIDOSTIGMINE BROMIDE,4,Approved,clinical_activity
+CHEMBL81,O=C(c1ccc(OCCN2CCCCC2)cc1)c1c(-c2ccc(O)cc2)sc2cc(O)ccc12,RALOXIFENE,4,Approved,clinical_activity
+CHEMBL1790041,CNC(=C[N+](=O)[O-])NCCSCc1ccc(CN(C)C)o1,RANITIDINE,4,Approved,clinical_activity
+CHEMBL416,COc1c2occc2cc2ccc(=O)oc12,METHOXSALEN,4,Approved,clinical_activity
+CHEMBL477772,Cc1ccc(Nc2nccc(N(C)c3ccc4c(C)n(C)nc4c3)n2)cc1S(N)(=O)=O,PAZOPANIB,4,Approved,clinical_activity
+CHEMBL7568,CCN(CC)CCCC(C)Nc1c2ccc(Cl)cc2nc2ccc(OC)cc12,QUINACRINE,4,Approved,clinical_activity
+CHEMBL1134,C[N+](C)(C)CCCCCCCCCC[N+](C)(C)C.[Br-].[Br-],DECAMETHONIUM BROMIDE,4,Approved,clinical_activity
+CHEMBL640,CCN(CC)CCNC(=O)c1ccc(N)cc1,PROCAINAMIDE,4,Approved,clinical_activity
+CHEMBL623,CCc1nn(CCCN2CCN(c3cccc(Cl)c3)CC2)c(=O)n1CCOc1ccccc1,NEFAZODONE,4,Approved,clinical_activity
+CHEMBL1237021,O=C1[C@@H]2[C@H]3CC[C@H](C3)[C@@H]2C(=O)N1C[C@@H]1CCCC[C@H]1CN1CCN(c2nsc3ccccc23)CC1,LURASIDONE,4,Approved,clinical_activity
+CHEMBL119,COc1cc(NCc2ccc3nc(N)nc(N)c3c2C)cc(OC)c1OC,TRIMETREXATE,4,Approved,clinical_activity
+CHEMBL772,COC(=O)[C@H]1[C@H]2C[C@@H]3c4[nH]c5cc(OC)ccc5c4CCN3C[C@H]2C[C@@H](OC(=O)c2cc(OC)c(OC)c(OC)c2)[C@@H]1OC,RESERPINE,4,Approved,clinical_activity
+CHEMBL3286830,C[C@H]1Oc2cc(cnc2N)-c2c(nn(C)c2C#N)CN(C)C(=O)c2ccc(F)cc21,LORLATINIB,4,Approved,clinical_activity
+CHEMBL493,CC(C)C[C@H]1C(=O)N2CCC[C@H]2[C@]2(O)O[C@](NC(=O)[C@@H]3C=C4c5cccc6[nH]c(Br)c(c56)C[C@H]4N(C)C3)(C(C)C)C(=O)N12,BROMOCRIPTINE,4,Approved,clinical_activity
+CHEMBL1555,Br.COc1ccc2c3c1O[C@H]1C[C@@H](O)C=C[C@@]31CCN(C)C2,GALANTAMINE HYDROBROMIDE,4,Approved,clinical_activity
+CHEMBL496,Oc1c(Cl)cc(Cl)c(Cl)c1Cc1c(O)c(Cl)cc(Cl)c1Cl,HEXACHLOROPHENE,4,Approved,clinical_activity
+CHEMBL1201256,COc1cc(C(=O)NCc2ccc(OCCN(C)C)cc2)cc(OC)c1OC,TRIMETHOBENZAMIDE,4,Approved,clinical_activity
+CHEMBL1262,Clc1ccc(CO/N=C(\Cn2ccnc2)c2ccc(Cl)cc2Cl)c(Cl)c1,OXICONAZOLE,4,Approved,clinical_activity
+CHEMBL3183075,CNC(=C[N+](=O)[O-])NCCSCc1csc(CN(C)C)n1,NIZATIDINE,4,Approved,clinical_activity
+CHEMBL1190,C[N+](C)(C)CCCCCCCCCC[N+](C)(C)C,DECAMETHONIUM,4,Approved,clinical_activity
+CHEMBL535,CCN(CC)CCNC(=O)c1c(C)[nH]c(/C=C2\C(=O)Nc3ccc(F)cc32)c1C,SUNITINIB,4,Approved,clinical_activity
+CHEMBL64894,CN(C)c1ccc(C(=C2C=CC(=[N+](C)C)C=C2)c2ccc(N(C)C)cc2)cc1.[Cl-],GENTIAN VIOLET,4,Approved,clinical_activity
+CHEMBL175247,CCCCCCCCCCC[C@@H](C[C@@H]1OC(=O)[C@H]1CCCCCC)OC(=O)[C@H](CC(C)C)NC=O,ORLISTAT,4,Approved,clinical_activity
+CHEMBL1200623,CC[C@]1(O)CC[C@H]2[C@@H]3CCC4=CCCC[C@@H]4[C@H]3CC[C@@]21C,ETHYLESTRENOL,4,Approved,clinical_activity
+CHEMBL1201092,CCN(C)C(=O)Oc1cccc([C@H](C)N(C)C)c1.O=C(O)[C@H](O)[C@@H](O)C(=O)O,RIVASTIGMINE TARTRATE,4,Approved,clinical_activity
+CHEMBL189963,CC(=O)c1c(C)c2cnc(Nc3ccc(N4CCNCC4)cn3)nc2n(C2CCCC2)c1=O,PALBOCICLIB,4,Approved,clinical_activity
+CHEMBL628,CC(=O)CCCCn1c(=O)c2c(ncn2C)n(C)c1=O,PENTOXIFYLLINE,4,Approved,clinical_activity
+CHEMBL990,CN(Cc1ccc(C(C)(C)C)cc1)Cc1cccc2ccccc12,BUTENAFINE,4,Approved,clinical_activity
+CHEMBL113,Cn1c(=O)c2c(ncn2C)n(C)c1=O,CAFFEINE,4,Approved,clinical_activity
+CHEMBL55,N=C(N)c1ccc(OCCCCCOc2ccc(C(=N)N)cc2)cc1,PENTAMIDINE,4,Approved,clinical_activity
+CHEMBL305660,CC(C)(C)c1ccc(C(=O)CCCN2CCC(OC(c3ccccc3)c3ccccc3)CC2)cc1,EBASTINE,4,Approved,clinical_activity
+CHEMBL1171837,Cc1ccc(C(=O)Nc2ccc(CN3CCN(C)CC3)c(C(F)(F)F)c2)cc1C#Cc1cnc2cccnn12,PONATINIB,4,Approved,clinical_activity
+CHEMBL698,CCCCNc1ccc(C(=O)OCCN(C)C)cc1,TETRACAINE,4,Approved,clinical_activity
+CHEMBL85,Cc1nc2n(c(=O)c1CCN1CCC(c3noc4cc(F)ccc34)CC1)CCCC2,RISPERIDONE,4,Approved,clinical_activity
+CHEMBL1112,O=C1CCc2ccc(OCCCCN3CCN(c4cccc(Cl)c4Cl)CC3)cc2N1,ARIPIPRAZOLE,4,Approved,clinical_activity
+CHEMBL1201087,C=CCN1C[C@H](C(=O)N(CCCN(C)C)C(=O)NCC)C[C@@H]2c3cccc4[nH]cc(c34)C[C@H]21,CABERGOLINE,4,Approved,clinical_activity
+CHEMBL473,CN(CCOc1ccc(NS(C)(=O)=O)cc1)CCc1ccc(NS(C)(=O)=O)cc1,DOFETILIDE,4,Approved,clinical_activity
+CHEMBL808,Clc1ccc(COC(Cn2ccnc2)c2ccc(Cl)cc2Cl)cc1,ECONAZOLE,4,Approved,clinical_activity
+CHEMBL964,CCN(CC)C(=S)SSC(=S)N(CC)CC,DISULFIRAM,4,Approved,clinical_activity
+CHEMBL288441,COc1cc(Nc2c(C#N)cnc3cc(OCCCN4CCN(C)CC4)c(OC)cc23)c(Cl)cc1Cl,BOSUTINIB,4,Approved,clinical_activity
+CHEMBL672,CC(C)OC(=O)C(C)(C)Oc1ccc(C(=O)c2ccc(Cl)cc2)cc1,FENOFIBRATE,4,Approved,clinical_activity
+CHEMBL14376,COc1cc(C(C)=O)ccc1OCCCN1CCC(c2noc3cc(F)ccc23)CC1,ILOPERIDONE,4,Approved,clinical_activity
+CHEMBL1219,COCCCOc1ccnc(C[S+]([O-])c2nc3ccccc3[nH]2)c1C,RABEPRAZOLE,4,Approved,clinical_activity
+CHEMBL1254682,C=CCN1CC[C@]23CCCC[C@H]2[C@H]1Cc1ccc(O)cc13,LEVALLORPHAN,4,Approved,clinical_activity
+CHEMBL1714574,CC(C)N1CCN(c2ccc(OCC3COC(Cn4cncn4)(c4ccc(Cl)cc4Cl)O3)cc2)CC1,TERCONAZOLE,4,Approved,clinical_activity
+CHEMBL190461,C=C(C)[C@@H]1CCC(C)=C[C@H]1c1c(O)cc(CCCCC)cc1O,CANNABIDIOL,4,Approved,clinical_activity
+CHEMBL417,COc1cccc2c1C(=O)c1c(O)c3c(c(O)c1C2=O)C[C@@](O)(C(=O)CO)C[C@@H]3O[C@H]1C[C@H](N)[C@@H](O)[C@H](C)O1,EPIRUBICIN,4,Approved,clinical_activity
+CHEMBL21536,CCCCCCOc1nsnc1C1=CCCN(C)C1,XANOMELINE,4,Approved,clinical_activity
+CHEMBL1493,Cc1c(-c2ccccc2)oc2c(C(=O)OCCN3CCCCC3)cccc2c1=O,FLAVOXATE,4,Approved,clinical_activity
+CHEMBL748,C[n+]1ccccc1/C=N/O.[Cl-],PRALIDOXIME CHLORIDE,4,Approved,clinical_activity
+CHEMBL91,Clc1ccc(COC(Cn2ccnc2)c2ccc(Cl)cc2Cl)c(Cl)c1,MICONAZOLE,4,Approved,clinical_activity
+CHEMBL104,Clc1ccccc1C(c1ccccc1)(c1ccccc1)n1ccnc1,CLOTRIMAZOLE,4,Approved,clinical_activity
+CHEMBL852,N[C@@H](Cc1ccc(N(CCCl)CCCl)cc1)C(=O)O,MELPHALAN,4,Approved,clinical_activity
+CHEMBL611,COc1cc2nc(N3CCN(C(=O)C4CCCO4)CC3)nc(N)c2cc1OC,TERAZOSIN,4,Approved,clinical_activity
+CHEMBL2,COc1cc2nc(N3CCN(C(=O)c4ccco4)CC3)nc(N)c2cc1OC,PRAZOSIN,4,Approved,clinical_activity
+CHEMBL1200970,CCN(CC)C(C)CN1c2ccccc2Sc2ccccc21.Cl,ETHOPROPAZINE HYDROCHLORIDE,4,Approved,clinical_activity
+CHEMBL411,CC/C(=C(/CC)c1ccc(O)cc1)c1ccc(O)cc1,DIETHYLSTILBESTROL,4,Approved,clinical_activity
+CHEMBL1303,CCCN(CCc1cccs1)[C@H]1CCc2c(O)cccc2C1,ROTIGOTINE,4,Approved,clinical_activity
+CHEMBL142635,COc1ccccc1N1CCN(CC(O)COc2cccc3ccccc23)CC1,NAFTOPIDIL,4,Approved,clinical_activity
+CHEMBL779,CN1CC(=O)N2[C@H](c3ccc4c(c3)OCO4)c3[nH]c4ccccc4c3C[C@@H]2C1=O,TADALAFIL,4,Approved,clinical_activity
+CHEMBL117287,COCCCN1CCC(NC(=O)c2cc(Cl)c(N)c3c2OCC3)CC1,PRUCALOPRIDE,4,Approved,clinical_activity
+CHEMBL360055,CC[N+](CC)(CC)CCOc1cccc(OCC[N+](CC)(CC)CC)c1OCC[N+](CC)(CC)CC,GALLAMINE,4,Approved,clinical_activity
+CHEMBL549,CN(C)CCCC1(c2ccc(F)cc2)OCc2cc(C#N)ccc21,CITALOPRAM,4,Approved,clinical_activity
+CHEMBL278819,Cc1cc(-c2ccccc2)nnc1NCCN1CCOCC1,MINAPRINE,4,Approved,clinical_activity
+CHEMBL226335,C[C@@H]1O[C@@H](OC[C@H]2O[C@@H](Oc3c(-c4ccc(O)c(O)c4)oc4cc(O)cc(O)c4c3=O)[C@H](O)[C@@H](O)[C@@H]2O)[C@H](O)[C@H](O)[C@H]1O,RUTIN,3,Phase 3,clinical_activity
+CHEMBL263198,Nc1c2c(nc3c1CCCC3)CCCC2,OCTAAMINOACRIDINE,3,Phase 3,clinical_activity
+CHEMBL1372950,CO[C@]12C[C@@H](COC(=O)c3cncc(Br)c3)CN(C)[C@@H]1Cc1cn(C)c3cccc2c13,NICERGOLINE,3,Phase 3,clinical_activity
+CHEMBL50,O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,QUERCETIN,3,Phase 3,clinical_activity
+CHEMBL2107723,COc1cc(O)c(C(=O)Nc2nc(C(=O)NCCN(C(C)C)C(C)C)cs2)cc1OC,ACOTIAMIDE,3,Phase 3,clinical_activity
+CHEMBL77305,CC[C@@]1(O)C(=O)OCc2c1cc1n(c2=O)Cc2cc3c([N+](=O)[O-])cccc3nc2-1,RUBITECAN,3,Phase 3,clinical_activity
+CHEMBL25336,C(=N/NC1=NCCN1)\c1c2ccccc2c(/C=N/NC2=NCCN2)c2ccccc12,BISANTRENE,3,Phase 3,clinical_activity
+CHEMBL305906,CCCCCCCCCCCCCCCC[n+]1ccccc1,CETYLPYRIDINIUM,3,Phase 3,clinical_activity
+CHEMBL51085,O=c1c2ccccc2[se]n1-c1ccccc1,EBSELEN,3,Phase 3,clinical_activity
+CHEMBL399510,CCN(CC)CCNC(=O)c1cc(Br)c(N)cc1OC,BROMOPRIDE,3,Phase 3,clinical_activity
+CHEMBL19224,COc1ccc(Cc2nccc3cc(OC)c(OC)cc23)cc1OC,PAPAVERINE,3,Phase 3,clinical_activity
+CHEMBL551978,CCOc1ccc(/C=C2\NCCc3cc(OCC)c(OCC)cc32)cc1OCC,DROTAVERINE,3,Phase 3,clinical_activity
+CHEMBL521589,CN(C)C(=O)Oc1cc(OC(=O)N(C)C)cc(C(O)CNC(C)(C)C)c1,BAMBUTEROL,3,Phase 3,clinical_activity
+CHEMBL11298,N[C@@H](CO)C(=O)O,SERINE,3,Phase 3,clinical_activity
+CHEMBL589390,Cc1ccc2c(c1)c1c(n2CCc2ccc(C)nc2)CCN(C)C1,LATREPIRDINE,3,Phase 3,clinical_activity
+CHEMBL54126,CN(C)C(=O)Oc1cccc([N+](C)(C)C)c1.[Br-],NEOSTIGMINE BROMIDE,2,Phase 2,clinical_activity
+CHEMBL329012,O=C(O)/C=C\C(=O)O.O=C1Cc2cc3c(CCC4CCN(Cc5ccccc5)CC4)noc3cc2N1,ICOPEZIL MALEATE,2,Phase 2,clinical_activity
+CHEMBL359570,O=C1Cc2cc3c(CCC4CCN(Cc5ccccc5)CC4)noc3cc2N1,ICOPEZIL,2,Phase 2,clinical_activity
+CHEMBL9113,Cc1ccccc1,TOLUENE,2,Phase 2,clinical_activity
+CHEMBL31574,O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)ccc12,FISETIN,2,Phase 2,clinical_activity
+CHEMBL121810,CCc1ccccc1NC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)O[C@@H]1N2C,GANSTIGMINE,2,Phase 2,clinical_activity
+CHEMBL75013,O=C(CCC1CCN(Cc2ccccc2)CC1)c1ccc2c(c1)NCCCC2,ZANAPEZIL,2,Phase 2,clinical_activity
+CHEMBL1243298,CN1CC[C@@]2(C)c3cc(OC(=O)N4CCc5ccccc5C4)ccc3N(C)[C@@H]12,QUILOSTIGMINE,2,Phase 2,clinical_activity
+CHEMBL123248,CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)O[C@@H]1N2C,ESERIDINE,2,Phase 2,clinical_activity
+CHEMBL51934,Nc1c2c(nc3ccccc13)CCCC2O,VELNACRINE,2,Phase 2,clinical_activity
+CHEMBL43184,Nc1c2ccccc2nc2ccccc12,AMINACRINE,2,Phase 2,clinical_activity
+CHEMBL427342,O=C(Nc1cccc(C2=NCCN2)c1)Nc1cccc(C2=NCCN2)c1,IMIDOCARB,2,Phase 2,clinical_activity
+CHEMBL167911,COP(=O)(OC)OC=C(Cl)Cl,DICHLORVOS,2,Phase 2,clinical_activity
+CHEMBL130880,Nc1c2c(nc3c1CCC3)CCCC2,IPIDACRINE,2,Phase 2,clinical_activity
+CHEMBL325109,COc1cc(N)c(Cl)cc1C(=O)NC1CCN(Cc2ccccc2)CC1,CLEBOPRIDE,2,Phase 2,clinical_activity
+CHEMBL19215,CN1C[C@H](CNC(=O)OCc2ccccc2)C[C@@H]2c3cccc4c3c(cn4C)C[C@H]21,METERGOLINE,2,Phase 2,clinical_activity
+CHEMBL417799,C[n+]1cc2c3c(ccc2c2ccc4cc5c(cc4c21)OCO5)OCO3,SANGUINARIUM,2,Phase 2,clinical_activity
+CHEMBL55400,Nc1ccc2cc3ccc(N)cc3nc2c1,PROFLAVINE,2,Phase 2,clinical_activity
+CHEMBL388560,CCOP(=S)(OCC)Oc1cc(C)nc(C(C)C)n1,DIMPYLATE,2,Phase 2,clinical_activity
+CHEMBL221753,CC(C)(C)CC(C)(C)c1ccc(OCCOCC[N+](C)(C)Cc2ccccc2)cc1.[Cl-],BENZETHONIUM CHLORIDE,2,Phase 2,clinical_activity
+CHEMBL1182210,CC(C)(C)CC(C)(C)c1ccc(OCCOCC[N+](C)(C)Cc2ccccc2)cc1,BENZETHONIUM,2,Phase 2,clinical_activity
+CHEMBL451635,O/N=C/c1cc[n+](COC[n+]2ccc(/C=N/O)cc2)cc1,OBIDOXIME,2,Phase 2,clinical_activity
+CHEMBL12131,Cc1cc(C(C#N)c2ccc(Cl)cc2)c(Cl)cc1NC(=O)c1cc(I)cc(I)c1O,CLOSANTEL,2,Phase 2,clinical_activity
+CHEMBL426113,O/N=C/c1cc[n+](CCC[n+]2ccc(/C=N/O)cc2)cc1.[Br-].[Br-],TRIMEDOXIME BROMIDE,2,Phase 2,clinical_activity
+CHEMBL314437,CCC1(c2cccc(O)c2)CCCCN(C)C1,MEPTAZINOL,2,Phase 2,clinical_activity
+CHEMBL1079905,CCCn1cnc2c1c(=O)n(CCCCC(C)=O)c(=O)n2C,PROPENTOFYLLINE,2,Phase 2,clinical_activity
+CHEMBL2105300,Cc1ccc2c([nH]c(=O)c3c(=O)cc(C(=O)OCCC(C)C)oc32)c1C,REPIRINAST,2,Phase 2,clinical_activity
+CHEMBL39677,c1ccc2nc3ccccc3cc2c1,ACRIDINE,2,Phase 2,clinical_activity
+CHEMBL828,c1ccc2c(c1)Nc1ccccc1S2,PHENOTHIAZINE,2,Phase 2,clinical_activity
+CHEMBL1742452,CC(OCCN1CCCCCC1)(c1ccccc1)c1ccc(Cl)cc1,SETASTINE,2,Phase 2,clinical_activity
+CHEMBL1626223,CN1CCCN=C1/C=C/c1cccs1,PYRANTEL,2,Phase 2,clinical_activity
+CHEMBL7002,CC1(COc2ccc(CC3SC(=O)NC3=O)cc2)CCCCC1,CIGLITAZONE,2,Phase 2,clinical_activity
+CHEMBL291233,O/N=C/c1cc[n+](COC[n+]2ccc(/C=N/O)cc2)cc1.[Cl-].[Cl-],OBIDOXIME CHLORIDE,2,Phase 2,clinical_activity
+CHEMBL285802,CN(C)CCOC1=Cc2ccccc2Sc2ccc(Cl)cc21,ZOTEPINE,2,Phase 2,clinical_activity
+CHEMBL251940,N#Cc1ccc2c(c1)N(CCCN1CCC(O)CC1)c1ccccc1S2,PERICIAZINE,2,Phase 2,clinical_activity
+CHEMBL609109,CN1CCN(CCCN2c3ccccc3Sc3ccc(S(=O)(=O)N(C)C)cc32)CC1,THIOPROPERAZINE,2,Phase 2,clinical_activity
+CHEMBL255231,C#CCN[C@@H]1CCc2ccc(OC(=O)N(C)CC)cc21,LADOSTIGIL,2,Phase 2,clinical_activity
+CHEMBL32778,O/N=C/c1cc[n+](CCC[n+]2ccc(/C=N/O)cc2)cc1,TRIMEDOXIME,2,Phase 2,clinical_activity
+CHEMBL151,O=c1cc(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,LUTEOLIN,2,Phase 2,clinical_activity
+CHEMBL150365,N#Cc1cc(-c2ccccc2)nnc1NCCN1CCOCC1,BAZINAPRINE,2,Phase 2,clinical_activity
+CHEMBL12089,COc1ccc2cc3[n+](cc2c1OC)CCc1cc2c(cc1-3)OCO2.[Cl-],BERBERINE CHLORIDE,1,Phase 1,clinical_activity
+CHEMBL2386558,CN(C)C(=O)[C@H]1C[C@@H]1c1ccc(-c2ncn(C)c2Sc2ccc(Cl)cn2)cc1,MK-3168,1,Phase 1,clinical_activity
+CHEMBL164660,O=c1ccc2cc3ccoc3cc2o1,PSORALEN,1,Phase 1,clinical_activity
+CHEMBL3696475,Cc1c([C@@H](O)CN2CCN(C[C@H](O)c3ccc4c(c3C)COC4=O)CC2)ccc2c1COC2=O,MK-7145,1,Phase 1,clinical_activity
+CHEMBL269538,COc1ccc2c(c1)[nH]c1c(C)nccc12,HARMINE,1,Phase 1,clinical_activity
+CHEMBL150,O=c1c(O)c(-c2ccc(O)cc2)oc2cc(O)cc(O)c12,KAEMPFEROL,1,Phase 1,clinical_activity
+CHEMBL1200933,C[N+](C)(CCCCCC[N+](C)(C)C1c2ccccc2-c2ccccc21)C1c2ccccc2-c2ccccc21.[Br-].[Br-],HEXAFLUORENIUM BROMIDE,4,Approved,drug_mechanism
+CHEMBL1200367,CCOP(=O)(OCC)SCC[N+](C)(C)C.[I-],ECHOTHIOPHATE IODIDE,4,Approved,drug_mechanism
+CHEMBL1200514,CN(CCCCCCCCCCN(C)C(=O)Oc1cccc([N+](C)(C)C)c1)C(=O)Oc1cccc([N+](C)(C)C)c1.[Br-].[Br-],DEMECARIUM BROMIDE,4,Approved,drug_mechanism
+CHEMBL1200541,CC[N+](CC)(CCNC(=O)C(=O)NCC[N+](CC)(CC)Cc1ccccc1Cl)Cc1ccccc1Cl.[Cl-].[Cl-],AMBENONIUM CHLORIDE,4,Approved,drug_mechanism
+CHEMBL1201341,CCOP(=O)(OCC)SCC[N+](C)(C)C,ECHOTHIOPHATE,4,Approved,drug_mechanism
+CHEMBL2105345,CCCOC(=O)Cc1ccc(OCC(=O)N(CC)CC)c(OC)c1,PROPANIDID,4,Approved,drug_mechanism
+CHEMBL1364551,Cc1cc(-c2ccccc2)nnc1NCCN1CCOCC1.Cl.Cl,MINAPRINE HYDROCHLORIDE,4,Approved,drug_mechanism
+CHEMBL6068431,COc1ccc2c3c1O[C@H]1C[C@@H](OC(=O)c4ccccc4)C=C[C@@]31CCN(C)C2.O=C(O)C(O)C(O)C(O)C(O)CO,BENZGALANTAMINE GLUCONATE,4,Approved,drug_mechanism
+CHEMBL2107308,COc1cc(O)c(C(=O)Nc2nc(C(=O)NCCN(C(C)C)C(C)C)cs2)cc1OC.Cl.O.O.O,ACOTIAMIDE HYDROCHLORIDE,3,Phase 3,drug_mechanism
+CHEMBL2107457,COc1ccc(C(=O)NCc2ccc(OCCN(C)C)cc2)cc1OC,ITOPRIDE,3,Phase 3,drug_mechanism
+CHEMBL1199307,CN(CCCCCCN(C)C(=O)Oc1ccc[n+](C)c1)C(=O)Oc1ccc[n+](C)c1,DISTIGMINE,2,Phase 2,drug_mechanism
+CHEMBL338975,CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)[C@@H]1N2C.O=C(O)c1ccccc1O,PHYSOSTIGMINE SALICYLATE,-1,Phase -1,drug_mechanism

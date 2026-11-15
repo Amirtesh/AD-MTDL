@@ -1,0 +1,21 @@
+{
+  "thresholds_logit": {
+    "AChE_class": -0.5,
+    "BuChE_class": 3.2,
+    "BACE1_class": -0.4,
+    "MAO_B_class": -2.55
+  },
+  "thresholds_probability": {
+    "AChE_class": 0.3775406687981454,
+    "BuChE_class": 0.9608342772032357,
+    "BACE1_class": 0.401312339887548,
+    "MAO_B_class": 0.07242648536151773
+  },
+  "rule": "MCC sweep on validation in logit space, centre of contiguous plateau within 0.005 of max MCC",
+  "v1_thresholds_applied_to_sigmoid_of_prob": {
+    "AChE_class": 0.59,
+    "BuChE_class": 0.68,
+    "BACE1_class": 0.6,
+    "MAO_B_class": 0.51
+  }
+}

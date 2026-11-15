@@ -37,7 +37,9 @@ VALID_TARGETS   = ["AChE", "BuChE", "BACE1", "MAO_B"]
 TARGET_COL_MAP  = {t: f"{t}_class" for t in VALID_TARGETS}
 
 DEFAULT_CKPT           = str(SCRIPT_DIR / "AD_MTDL_best.ckpt")
-DEFAULT_META           = str(SCRIPT_DIR / "AD_MTDL_metadata.json")
+DEFAULT_THRESHOLDS     = str(SCRIPT_DIR / "thresholds.json")
+DEFAULT_PLATT          = str(SCRIPT_DIR / "platt.json")
+DEFAULT_AD_REFERENCE   = str(SCRIPT_DIR / "AD_reference.npz")
 DEFAULT_PRIOR_SCAFFOLD = str(SCRIPT_DIR / "priors" / "mol2mol_medium_similarity.prior")
 DEFAULT_PRIOR_DENOVO   = str(SCRIPT_DIR / "priors" / "reinvent.prior")
 DEFAULT_SERVER_PORT    = 8765
@@ -58,7 +60,10 @@ CUSTOM_ALERTS = [
     "[#16;!s][C;!$(C(=[O,N])[N,O])][#16;!s]",
 ]
 
-SIGMOID_SPREAD = 0.20  # half-width around threshold for sigmoid transform
+# Reward = REINVENT sigmoid on the calibrated margin m = platt_slope * (logit - frozen_threshold); m = 0 is the decision
+# boundary. Assumed REINVENT form: 1/(1+10^(-10*k*(m-mid)/(high-low))), mid=(low+high)/2 -> 0.5 at m=0, ~0.95 at m=+3,
+# ~0.05 at m=-3. VERIFY on the dry run: the transformed column must equal 0.5 where the margin column is 0.
+REWARD_LOW, REWARD_HIGH, REWARD_K = -3.0, 3.0, 0.25
 
 
 # ══════════════════════════════════════════════════════════
@@ -88,7 +93,12 @@ def parse_args():
              "(scaffold_hop only, 0.0 = disabled)",
     )
     p.add_argument("--ckpt",           default=DEFAULT_CKPT)
-    p.add_argument("--meta",           default=DEFAULT_META)
+    p.add_argument("--thresholds",     default=DEFAULT_THRESHOLDS)
+    p.add_argument("--platt",          default=DEFAULT_PLATT)
+    p.add_argument("--ad_reference",   default=DEFAULT_AD_REFERENCE)
+    p.add_argument("--server_threads", type=int, default=None, help="torch threads for the scoring server")
+    p.add_argument("--reinvent_threads", type=int, default=None, help="OMP/MKL threads for REINVENT")
+    p.add_argument("--rng_seed",       type=int, default=None, help="passed to reinvent -s")
     p.add_argument("--prior_scaffold", default=DEFAULT_PRIOR_SCAFFOLD)
     p.add_argument("--prior_denovo",   default=DEFAULT_PRIOR_DENOVO)
     p.add_argument("--steps",          type=int,   default=DEFAULT_STEPS)
@@ -122,7 +132,8 @@ def validate(args):
             errors.append("--weights count must match --targets count")
         elif abs(sum(args.weights) - 1.0) > 1e-3:
             errors.append("--weights must sum to 1.0")
-    for label, path in [("--ckpt", args.ckpt), ("--meta", args.meta)]:
+    for label, path in [("--ckpt", args.ckpt), ("--thresholds", args.thresholds), ("--platt", args.platt),
+                        ("--ad_reference", args.ad_reference)]:
         if not os.path.exists(path):
             errors.append(f"{label} not found: {path}")
     prior = args.prior_scaffold if args.mode == "scaffold_hop" \
@@ -138,13 +149,10 @@ def validate(args):
 # ══════════════════════════════════════════════════════════
 # LOAD THRESHOLDS FROM METADATA
 # ══════════════════════════════════════════════════════════
-def load_thresholds(meta_path: str) -> dict:
-    """
-    Returns e.g. {'AChE_class': 0.59, 'BuChE_class': 0.68, ...}
-    """
-    with open(meta_path) as f:
-        meta = json.load(f)
-    return meta["optimal_thresholds"]
+def load_thresholds(path: str) -> dict:
+    """Frozen LOGIT thresholds, e.g. {'AChE_class': -0.5, ...}. Summary only: the reward is centred at margin 0."""
+    with open(path) as f:
+        return json.load(f)["thresholds_logit"]
 
 
 # ══════════════════════════════════════════════════════════
@@ -195,45 +203,30 @@ def _toml_smarts_list(smarts: list) -> str:
     return "\n".join(lines)
 
 
-def _oracle_endpoints(targets: list,
-                      target_cols: list,
-                      server_url: str,
-                      thresholds: dict) -> str:
-    """
-    Build one endpoint block per target.
-
-    Each endpoint applies a sigmoid transform centered at the
-    training threshold for that target, with half-width SIGMOID_SPREAD.
-
-    Sigmoid midpoint = threshold = (high + low) / 2
-    → high = threshold + SIGMOID_SPREAD
-    → low  = threshold - SIGMOID_SPREAD
-
-    Effect: compounds at exactly the activity threshold score 0.5.
-    Compounds well above threshold score ~0.95.
-    Compounds well below threshold score ~0.05.
-    RL agent receives meaningful gradient across the full probability range,
-    with strongest learning signal at the activity decision boundary.
-    """
-    blocks = []
-    for t, tc in zip(targets, target_cols):
-        thresh = thresholds.get(tc, 0.5)
-        high   = round(thresh + SIGMOID_SPREAD, 4)
-        low    = round(thresh - SIGMOID_SPREAD, 4)
-
-        blocks.append(textwrap.dedent(f"""\
+def _oracle_endpoints(targets: list, target_cols: list, server_url: str, thresholds: dict) -> str:
+    """Per target: a rewarded 'margin' endpoint (sigmoid centred at the frozen decision boundary) plus zero-weight display
+    endpoints (raw logit, applicability-domain level 0/1/2) that appear in REINVENT's results CSV but not in the aggregate."""
+    def ep(name, tc, quantity, weight, transform=""):
+        return textwrap.dedent(f"""\
             [[stage.scoring.component.ADMTDLOracle.endpoint]]
-            name   = "{t}_activity"
-            weight = 1.0
+            name   = "{name}"
+            weight = {weight}
             [stage.scoring.component.ADMTDLOracle.endpoint.params]
             target     = "{tc}"
+            quantity   = "{quantity}"
             server_url = "{server_url}"
-            [stage.scoring.component.ADMTDLOracle.endpoint.transform]
-            type = "sigmoid"
-            high = {high}
-            low  = {low}
-            k    = 0.5
-        """))
+        """) + transform
+
+    reward = textwrap.dedent(f"""\
+        [stage.scoring.component.ADMTDLOracle.endpoint.transform]
+        type = "sigmoid"
+        low  = {REWARD_LOW}
+        high = {REWARD_HIGH}
+        k    = {REWARD_K}
+    """)
+    blocks = []
+    for t, tc in zip(targets, target_cols):
+        blocks += [ep(f"{t}_margin", tc, "margin", 1.0, reward)]
     return "\n".join(blocks)
 
 
@@ -260,7 +253,7 @@ def build_toml(args,
             sample_strategy    = "multinomial"
             distance_threshold = 100
             batch_size         = {args.batch_size}
-            unique_sequences   = true
+#             unique_sequences   = true
             randomize_smiles   = false
             summary_csv_prefix = "{csv_px}"
             use_checkpoint     = false
@@ -271,7 +264,7 @@ def build_toml(args,
             prior_file         = "{prior}"
             agent_file         = "{prior}"
             batch_size         = {args.batch_size}
-            unique_sequences   = true
+#             unique_sequences   = true
             randomize_smiles   = true
             summary_csv_prefix = "{csv_px}"
             use_checkpoint     = false
@@ -393,26 +386,18 @@ def build_toml(args,
 # ══════════════════════════════════════════════════════════
 # SCORING SERVER
 # ══════════════════════════════════════════════════════════
-def start_server(args, n_cpus: int, log_path: str) -> subprocess.Popen:
+def start_server(args, n_cpus: int, log_path: str, mol_log: str) -> subprocess.Popen:
     server_script  = str(SCRIPT_DIR / "scoring_server.py")
-    server_threads = max(1, int(n_cpus * 0.75))
+    server_threads = args.server_threads or max(1, int(n_cpus * 0.75))
     cmd = [
-        "conda", "run", "--no-capture-output",
-        "-n", args.ad_mtdl_env,
-        "python", server_script,
-        "--ckpt",    args.ckpt,
-        "--meta",    args.meta,
-        "--port",    str(args.server_port),
-        "--threads", str(server_threads),
+        "conda", "run", "--no-capture-output", "-n", args.ad_mtdl_env, "python", server_script,
+        "--ckpt", args.ckpt, "--thresholds", args.thresholds, "--platt", args.platt,
+        "--ad-reference", args.ad_reference, "--port", str(args.server_port),
+        "--threads", str(server_threads), "--log-molecules", mol_log,
     ]
-    log.info(
-        f"Starting scoring server "
-        f"(env={args.ad_mtdl_env}, threads={server_threads})..."
-    )
+    log.info(f"Starting scoring server (env={args.ad_mtdl_env}, threads={server_threads}, port={args.server_port})...")
     log_fh = open(log_path, "w")
-    return subprocess.Popen(
-        cmd, stdout=log_fh, stderr=log_fh, preexec_fn=os.setsid
-    )
+    return subprocess.Popen(cmd, stdout=log_fh, stderr=log_fh, preexec_fn=os.setsid)
 
 
 def wait_for_server(server_url: str, timeout: int = 90) -> bool:
@@ -506,18 +491,15 @@ def parse_results(output_dir: str,
 
     log.info(f"Re-scoring {len(results)} compounds for per-target breakdown...")
     try:
-        resp = requests.post(
-            f"{server_url}/score",
-            json={"smiles": results["smiles"].tolist()},
-            timeout=300,
-        )
+        resp = requests.post(f"{server_url}/score", json={"smiles": results["smiles"].tolist()}, timeout=300)
         resp.raise_for_status()
-        preds = resp.json()
-        for t, tc in zip(targets, target_cols):
-            if tc in preds:
-                results[f"{t}_prob"] = [
-                    round(float(p), 4) for p in preds[tc]
-                ]
+        preds = resp.json()["targets"]
+        for t in targets:
+            num = lambda k: pd.to_numeric(pd.Series(preds[t][k]), errors="coerce").values
+            results[f"{t}_margin"] = num("margin").round(3)
+            results[f"{t}_logit"] = num("logit").round(2)
+            results[f"{t}_prob_platt"] = num("prob_platt").round(3)
+            results[f"{t}_ad"] = [{0.0: "low", 1.0: "medium", 2.0: "high"}.get(v, "NA") for v in num("ad_level")]
     except Exception as e:
         log.warning(f"Re-scoring failed: {e}")
 
@@ -542,7 +524,7 @@ def print_summary(results: pd.DataFrame, args, elapsed: float, thresholds: dict)
         f"{t}≥{thresholds.get(TARGET_COL_MAP[t], '?')}"
         for t in args.targets
     )
-    print(f"  Thresholds (sigmoid midpoints): {thresh_str}")
+    print(f"  Frozen logit thresholds (reward centre = margin 0): {thresh_str}")
     print(sep)
 
     if results.empty:
@@ -562,7 +544,7 @@ def print_summary(results: pd.DataFrame, args, elapsed: float, thresholds: dict)
         if len(smi) > 43:
             smi = smi[:40] + "..."
         prob_str = "  ".join(
-            f"{row.get(f'{t}_prob', float('nan')):>9.4f}"
+            f"{row.get(f'{t}_margin', float('nan')):>9.2f}"
             for t in args.targets
         )
         print(f"  {i+1:>4}  {smi:<45}  "
@@ -575,14 +557,11 @@ def print_summary(results: pd.DataFrame, args, elapsed: float, thresholds: dict)
         f"{results['total_score'].max():.4f}"
     )
     for t in args.targets:
-        col    = f"{t}_prob"
-        thresh = thresholds.get(TARGET_COL_MAP[t], 0.5)
+        col = f"{t}_margin"
         if col in results.columns:
-            n_active = (results[col] >= thresh).sum()
-            print(
-                f"  {t} predicted active "
-                f"(prob ≥ {thresh}): {n_active}/{len(results)}"
-            )
+            n_pass = int((results[col] > 0).sum())
+            ad = results[f"{t}_ad"].value_counts().to_dict() if f"{t}_ad" in results.columns else {}
+            print(f"  {t}: margin > 0 (passes frozen threshold) {n_pass}/{len(results)} | AD mix {ad}")
     print(sep)
 
 
@@ -594,11 +573,11 @@ def main():
     validate(args)
 
     # Load thresholds from metadata — used in TOML and summary
-    thresholds = load_thresholds(args.meta)
+    thresholds = load_thresholds(args.thresholds)
     log.info(f"Loaded thresholds: {thresholds}")
 
     total_cpus    = args.n_cpus or os.cpu_count() or 8
-    reinvent_cpus = max(1, total_cpus // 4)
+    reinvent_cpus = args.reinvent_threads or max(1, total_cpus // 4)
 
     os.environ["OMP_NUM_THREADS"]      = str(reinvent_cpus)
     os.environ["MKL_NUM_THREADS"]      = str(reinvent_cpus)
@@ -641,7 +620,7 @@ def main():
         log.info(f"TOML written: {toml_path}")
 
         server_log  = os.path.join(output_dir, "scoring_server.log")
-        server_proc = start_server(args, total_cpus, server_log)
+        server_proc = start_server(args, total_cpus, server_log, os.path.join(output_dir, "scored_molecules.csv"))
 
         log.info("Waiting for scoring server...")
         if not wait_for_server(server_url, timeout=90):
@@ -651,31 +630,27 @@ def main():
             sys.exit(1)
         log.info("Scoring server ready.")
 
+        seed_report = {}
         if args.smiles:
             try:
-                r = requests.post(
-                    f"{server_url}/score",
-                    json={"smiles": [args.smiles]},
-                    timeout=30,
-                )
-                preds = r.json()
-                scores = {
-                    t: round(float(preds[tc][0]), 4)
-                    for t, tc in zip(args.targets, target_cols)
-                    if tc in preds
-                }
-                log.info(f"Seed SMILES scores: {scores}")
+                r = requests.post(f"{server_url}/score", json={"smiles": [args.smiles]}, timeout=30)
+                tg = r.json()["targets"]
+                seed_report = {t: {k: tg[t][k][0] for k in ("margin", "logit", "ad_level")} for t in args.targets}
+                log.info(f"Seed scores (margin > 0 = seed already passes the threshold): {seed_report}")
             except Exception as e:
                 log.warning(f"Seed sanity check failed: {e}")
+        try:
+            provenance = requests.get(f"{server_url}/health", timeout=10).json().get("provenance", {})
+        except Exception:
+            provenance = {}
 
         reinvent_log = os.path.join(output_dir, "reinvent.log")
         log.info(f"Starting REINVENT4 ({args.steps} steps)...")
 
         start_time = time.time()
-        proc = subprocess.run(
-            ["reinvent", "-l", reinvent_log, toml_path],
-            env=os.environ,
-        )
+        os.environ["ADMTDL_BRIDGE_STATS"] = os.path.join(output_dir, "bridge_stats.json")
+        cmd = ["reinvent", "-l", reinvent_log] + (["-s", str(args.rng_seed)] if args.rng_seed is not None else []) + [toml_path]
+        proc = subprocess.run(cmd, env=os.environ)
         elapsed = time.time() - start_time
 
         log.info(
@@ -688,6 +663,12 @@ def main():
                 f"Check: {reinvent_log}"
             )
 
+        try:
+            server_stats = requests.get(f"{server_url}/stats", timeout=10).json()
+            n_req = max(server_stats.get("requests", 0), 1)
+            log.info(f"Server stats: {server_stats} | mean scoring time per request {server_stats.get('seconds', 0) / n_req:.2f}s")
+        except Exception:
+            server_stats = {}
         log.info("Parsing results...")
         results = parse_results(
             output_dir  = output_dir,
@@ -723,6 +704,11 @@ def main():
                 "top_k"          : args.top_k,
                 "elapsed_min"    : round(elapsed / 60, 2),
                 "n_results"      : len(results),
+                "rng_seed"       : args.rng_seed,
+                "server_stats"   : server_stats,
+                "seed_scores"    : seed_report,
+                "provenance"     : provenance,
+                "reward"         : {"quantity": "margin", "low": REWARD_LOW, "high": REWARD_HIGH, "k": REWARD_K},
             }, f, indent=2)
 
         print_summary(results, args, elapsed, thresholds)

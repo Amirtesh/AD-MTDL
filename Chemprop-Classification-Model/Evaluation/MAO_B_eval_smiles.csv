@@ -1,0 +1,52 @@
+chembl_id,canonical_smiles,pref_name,max_phase,phase_label,source
+CHEMBL1089,NNCCc1ccccc1,PHENELZINE,4,Approved,known_inhibitor
+CHEMBL279390,NCCNC(=O)c1ccc(Cl)cn1,LAZABEMIDE,2,Phase 2,known_inhibitor
+CHEMBL3707394,CC(=O)N[C@H]1CC(=O)N(c2ccc(OCc3cccc(F)c3)cc2)C1,SEMBRAGILINE,2,Phase 2,known_inhibitor
+CHEMBL396778,C[C@H](NCc1ccc(OCc2cccc(F)c2)cc1)C(N)=O,SAFINAMIDE,4,Approved,known_inhibitor
+CHEMBL3989843,N[C@@H]1C[C@H]1c1ccccc1.N[C@H]1C[C@@H]1c1ccccc1,TRANYLCYPROMINE,4,Approved,known_inhibitor
+CHEMBL673,C#CCN(C)Cc1ccccc1,PARGYLINE,4,Approved,known_inhibitor
+CHEMBL86304,O=C(NCCN1CCOCC1)c1ccc(Cl)cc1,MOCLOBEMIDE,4,Approved,known_inhibitor
+CHEMBL887,C#CCN[C@@H]1CCc2ccccc21,RASAGILINE,4,Approved,known_inhibitor
+CHEMBL972,C#CCN(C)[C@H](C)Cc1ccccc1,SELEGILINE,4,Approved,known_inhibitor
+CHEMBL1200904,C#CCN(C)[C@H](C)Cc1ccccc1.Cl,SELEGILINE HYDROCHLORIDE,4,Approved,clinical_activity
+CHEMBL1201142,C#CCN[C@@H]1CCc2ccccc21.CS(=O)(=O)O,RASAGILINE MESYLATE,4,Approved,clinical_activity
+CHEMBL431770,CCn1c(=O)c2c(nc(/C=C/c3ccc(OC)c(OC)c3)n2C)n(CC)c1=O,ISTRADEFYLLINE,4,Approved,clinical_activity
+CHEMBL595,CCc1ccc(CCOc2ccc(CC3SC(=O)NC3=O)cc2)nc1,PIOGLITAZONE,4,Approved,clinical_activity
+CHEMBL590,CC1=CC(=O)c2ccccc2C1=O,MENADIONE,4,Approved,clinical_activity
+CHEMBL126,CC(=O)NC[C@H]1CN(c2ccc(N3CCOCC3)c(F)c2)C(=O)O1,LINEZOLID,4,Approved,clinical_activity
+CHEMBL121,CN(CCOc1ccc(CC2SC(=O)NC2=O)cc1)c1ccccn1,ROSIGLITAZONE,4,Approved,clinical_activity
+CHEMBL408,Cc1c(C)c2c(c(C)c1O)CCC(C)(COc1ccc(CC3SC(=O)NC3=O)cc1)O2,TROGLITAZONE,4,Approved,clinical_activity
+CHEMBL750,NS(=O)(=O)Cc1noc2ccccc12,ZONISAMIDE,4,Approved,clinical_activity
+CHEMBL191083,CN(C)c1ccc2nc3ccc(=[N+](C)C)cc-3sc2c1,METHYLENE BLUE CATION,4,Approved,clinical_activity
+CHEMBL91,Clc1ccc(COC(Cn2ccnc2)c2ccc(Cl)cc2Cl)c(Cl)c1,MICONAZOLE,4,Approved,clinical_activity
+CHEMBL18116,Cc1cccc(N2CC(CO)OC2=O)c1,TOLOXATONE,4,Approved,clinical_activity
+CHEMBL502,COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccc3)CC1)C2,DONEPEZIL,4,Approved,clinical_activity
+CHEMBL104,Clc1ccccc1C(c1ccccc1)(c1ccccc1)n1ccnc1,CLOTRIMAZOLE,4,Approved,clinical_activity
+CHEMBL53418,O=C1c2cccc(O)c2C(=O)c2c(O)cccc21,DANTHRON,4,Approved,clinical_activity
+CHEMBL506,COc1cc(NC(C)CCCN)c2ncccc2c1,PRIMAQUINE,4,Approved,clinical_activity
+CHEMBL10316,c1ccc2c(c1)OCC(C1=NCCN1)O2,IDAZOXAN,3,Phase 3,clinical_activity
+CHEMBL140,COc1cc(/C=C/C(=O)CC(=O)/C=C/c2ccc(O)c(OC)c2)ccc1O,CURCUMIN,3,Phase 3,clinical_activity
+CHEMBL165,Oc1ccc(/C=C/c2cc(O)cc(O)c2)cc1,RESVERATROL,3,Phase 3,clinical_activity
+CHEMBL1257051,Cn1nnc(-c2ccc(-c3ccc(N4C[C@H](CO)OC4=O)cc3F)cn2)n1,TEDIZOLID,3,Phase 3,clinical_activity
+CHEMBL50,O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,QUERCETIN,3,Phase 3,clinical_activity
+CHEMBL19004,Cc1c(C)c2ccc(OCc3nnc(C(C)C)s3)cc2oc1=O,ATIBEPRONE,2,Phase 2,clinical_activity
+CHEMBL489079,NC/C(=C/F)CCc1ccc(F)cc1,MOFEGILINE,2,Phase 2,clinical_activity
+CHEMBL8706,C#CCN(C)CCCOc1ccc(Cl)cc1Cl,CLORGILINE,2,Phase 2,clinical_activity
+CHEMBL4802155,Nc1nnc(CN[C@@H]2C[C@H]2c2ccc(OCc3ccccc3)cc2)o1,VAFIDEMSTAT,2,Phase 2,clinical_activity
+CHEMBL7002,CC1(COc2ccc(CC3SC(=O)NC3=O)cc2)CCCCC1,CIGLITAZONE,2,Phase 2,clinical_activity
+CHEMBL43185,O=C(/C=C/C=C/c1ccc2c(c1)OCO2)N1CCCCC1,PIPERINE,2,Phase 2,clinical_activity
+CHEMBL44,O=c1c(-c2ccc(O)cc2)coc2cc(O)cc(O)c12,GENISTEIN,2,Phase 2,clinical_activity
+CHEMBL288149,CC(=O)NC[C@H]1CN(c2ccc(N3CCSCC3)c(F)c2)C(=O)O1,SUTEZOLID,2,Phase 2,clinical_activity
+CHEMBL92401,CC(C)NNC(=O)c1ccncc1,IPRONIAZID,2,Phase 2,clinical_activity
+CHEMBL442687,O=c1oc2cc(O)ccc2s1,TIOXOLONE,2,Phase 2,clinical_activity
+CHEMBL160347,COc1cc(Br)c2oc(C3CCNCC3)cc2c1,BROFAROMINE,2,Phase 2,clinical_activity
+CHEMBL1232461,CCNC(=O)C[C@@H]1N=C(c2ccc(Cl)cc2)c2cc(OC)ccc2-n2c(C)nnc21,MOLIBRESIB,2,Phase 2,clinical_activity
+CHEMBL242341,COc1ccc(-c2coc3cc(O)ccc3c2=O)cc1,FORMONONETIN,2,Phase 2,clinical_activity
+CHEMBL255231,C#CCN[C@@H]1CCc2ccc(OC(=O)N(C)CC)cc21,LADOSTIGIL,2,Phase 2,clinical_activity
+CHEMBL151,O=c1cc(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,LUTEOLIN,2,Phase 2,clinical_activity
+CHEMBL12208,Cc1cc(=O)oc2cc(O)ccc12,HYMECROMONE,2,Phase 2,clinical_activity
+CHEMBL5095023,N#C/C(=C\C=C\c1ccc(O)c(O)c1)C(=O)NCc1ccccc1,LS-104,1,Phase 1,clinical_activity
+CHEMBL3786182,O=C(O)c1ccc(CN2CCC(CN[C@@H]3C[C@H]3c3ccccc3)CC2)cc1,GSK2879552,1,Phase 1,clinical_activity
+CHEMBL48582,CS(=O)(=O)O.C[C@H](NCc1ccc(OCc2cccc(F)c2)cc1)C(N)=O,SAFINAMIDE MESYLATE,4,Approved,drug_mechanism
+CHEMBL6067988,C#CCN[C@@H]1CCc2ccccc21.C#CCN[C@@H]1CCc2ccccc21.O=C(O)[C@H](O)[C@@H](O)C(=O)O,RASAGILINE TARTRATE,4,Approved,drug_mechanism
+CHEMBL2107771,C[C@H](NCc1ccc(OCc2ccccc2F)cc1)C(N)=O,RALFINAMIDE,3,Phase 3,drug_mechanism

@@ -1,0 +1,140 @@
+Seed set to 42
+chemprop 2.3.1 | device cuda
+Compounds after cleaning: 11,297
+  AChE_class   : Active= 1536  Inactive= 1164  NaN= 8597
+  BuChE_class  : Active=  939  Inactive=  761  NaN= 9597
+  BACE1_class  : Active= 4739  Inactive=  750  NaN= 5808
+  MAO_B_class  : Active=  978  Inactive= 1135  NaN= 9184
+The return type of make_split_indices has changed in v2.1 - see help(make_split_indices)
+
+--- BinaryClassificationFFN.forward ---
+    def forward(self, Z: Tensor) -> Tensor:
+        Y = super().forward(Z)
+
+        return Y.sigmoid()
+--- BinaryClassificationFFN.train_step ---
+    def train_step(self, Z: Tensor) -> Tensor:
+        return super().forward(Z)
+
+
+Loaded v1 checkpoint: /kaggle/input/datasets/amirtesh/ad-rl-chemprop-model/AD_MTDL_best.ckpt | params=410,104
+
+===== GATE 0: logits consistent with forward() probabilities; no compression =====
+  val: max|expit(logit)-forward|=8.45e-08 | prob range [0.0000, 1.0000] | logit range [-45.62, 41.85] | exact 0/1 outputs: 0/308 of 4516
+  test: max|expit(logit)-forward|=8.56e-08 | prob range [0.0000, 1.0000] | logit range [-57.28, 32.85] | exact 0/1 outputs: 0/272 of 4516
+GATE 0 PASSED. NOTE: float32 probabilities saturate at exactly 0/1 (ties); all ranking/threshold work below uses logits.
+
+===== GATE 1: v1 confusion-matrix reproduction (rule: expit(p) >= v1_threshold, p = forward() prob) =====
+  AChE_class   val  cm=(85, 8, 11, 92)  MATCH
+  BuChE_class  val  cm=(58, 2, 3, 59)  MATCH
+  BACE1_class  val  cm=(64, 11, 9, 470)  MATCH
+  MAO_B_class  val  cm=(143, 28, 29, 102)  MATCH
+  AChE_class   test cm=(97, 14, 27, 168)  MATCH
+  BuChE_class  test cm=(71, 7, 3, 92)  MATCH
+  BACE1_class  test cm=(48, 9, 11, 463)  MATCH
+  MAO_B_class  test cm=(74, 16, 28, 69)  MATCH
+GATE 1 PASSED: v1 tables reproduced; split, data and checkpoint identical to the submitted run.
+
+v1 thresholds expressed correctly (v1 'prob' threshold t applied to sigmoid(p)  ==  p >= logit(t); in logit space that is exactly t):
+  AChE_class   v1 0.59 on sigmoid(p)  ==  p >= 0.3640  ==  logit >= -0.558
+  BuChE_class  v1 0.68 on sigmoid(p)  ==  p >= 0.7538  ==  logit >= 1.119
+  BACE1_class  v1 0.60 on sigmoid(p)  ==  p >= 0.4055  ==  logit >= -0.383
+  MAO_B_class  v1 0.51 on sigmoid(p)  ==  p >= 0.0400  ==  logit >= -3.178
+
+===== GATE 2: AUROC — v1 method reproduced, then logit-based (tie-free) =====
+  AChE_class   v1 0.9281 | v1-method 0.9281 (v1 REPRODUCED) | float32 prob 0.9277 | logit 0.9277
+  BuChE_class  v1 0.9651 | v1-method 0.9651 (v1 REPRODUCED) | float32 prob 0.9663 | logit 0.9661
+  BACE1_class  v1 0.9856 | v1-method 0.9856 (v1 REPRODUCED) | float32 prob 0.9856 | logit 0.9856
+  MAO_B_class  v1 0.8532 | v1-method 0.8532 (v1 REPRODUCED) | float32 prob 0.8620 | logit 0.8620
+GATE 2 PASSED: new AUROC (from logits) within 0.01 of v1; differences are float32 tie artifacts, not a model change.
+
+===== MCC THRESHOLD SWEEP (val, logit grid -12..12 step 0.05) =====
+  AChE_class   exact-max logit -0.55 (p=0.366, MCC 0.8063) | plateau logit [-0.55, -0.45] (p [0.366, 0.389]) | SELECTED logit -0.50 (p=0.378, val MCC 0.8063)
+  BuChE_class  exact-max logit +2.85 (p=0.945, MCC 0.9192) | plateau logit [+2.85, +3.60] (p [0.945, 0.973]) | SELECTED logit +3.20 (p=0.961, val MCC 0.9192)
+  BACE1_class  exact-max logit -0.50 (p=0.378, MCC 0.8441) | plateau logit [-0.50, -0.30] (p [0.378, 0.426]) | SELECTED logit -0.40 (p=0.401, val MCC 0.8441)
+  MAO_B_class  exact-max logit -2.60 (p=0.069, MCC 0.6219) | plateau logit [-2.60, -2.50] (p [0.069, 0.076]) | SELECTED logit -2.55 (p=0.072, val MCC 0.6219)
+
+===== FULL METRICS - VAL + TEST =====
+
+                     N  Thr_logit  Thr_prob  AUROC  AUPRC    MCC  Accuracy   Sens   Spec   F1_W  F1_Mac  Prec_Pos  Rec_Pos  F1_Pos  Brier  Prevalence
+Task        Split                                                                                                                                    
+AChE_class  test   306    -0.5000    0.3775 0.9277 0.9632 0.7143    0.8627 0.8564 0.8739 0.8643  0.8552    0.9227   0.8564  0.8883 0.1160      0.6373
+            val    196    -0.5000    0.3775 0.9359 0.9404 0.8063    0.9031 0.8932 0.9140 0.9031  0.9029    0.9200   0.8932  0.9064 0.0955      0.5255
+BACE1_class test   531    -0.4000    0.4013 0.9856 0.9983 0.8066    0.9623 0.9768 0.8421 0.9626  0.9032    0.9809   0.9768  0.9789 0.0329      0.8927
+            val    554    -0.4000    0.4013 0.9837 0.9972 0.8441    0.9639 0.9812 0.8533 0.9637  0.9220    0.9771   0.9812  0.9792 0.0329      0.8646
+BuChE_class test   173     3.2000    0.9608 0.9661 0.9678 0.8718    0.9364 0.9368 0.9359 0.9365  0.9359    0.9468   0.9368  0.9418 0.0594      0.5491
+            val    122     3.2000    0.9608 0.9938 0.9941 0.9192    0.9590 0.9355 0.9833 0.9590  0.9590    0.9831   0.9355  0.9587 0.0411      0.5082
+MAO_B_class test   187    -2.5500    0.0724 0.8620 0.8838 0.5493    0.7701 0.7010 0.8444 0.7693  0.7696    0.8293   0.7010  0.7598 0.2202      0.5187
+            val    302    -2.5500    0.0724 0.8659 0.8381 0.6219    0.8146 0.7786 0.8421 0.8144  0.8109    0.7907   0.7786  0.7846 0.1868      0.4338
+
+===== CONFUSION MATRICES =====
+
+  AChE_class [test] (logit thr=-0.5, p=0.3775)
+              Pred 0  Pred 1
+  Actual 0       97      14
+  Actual 1       28     167
+
+  AChE_class [val] (logit thr=-0.5, p=0.3775)
+              Pred 0  Pred 1
+  Actual 0       85       8
+  Actual 1       11      92
+
+  BACE1_class [test] (logit thr=-0.4, p=0.4013)
+              Pred 0  Pred 1
+  Actual 0       48       9
+  Actual 1       11     463
+
+  BACE1_class [val] (logit thr=-0.4, p=0.4013)
+              Pred 0  Pred 1
+  Actual 0       64      11
+  Actual 1        9     470
+
+  BuChE_class [test] (logit thr=3.2, p=0.9608)
+              Pred 0  Pred 1
+  Actual 0       73       5
+  Actual 1        6      89
+
+  BuChE_class [val] (logit thr=3.2, p=0.9608)
+              Pred 0  Pred 1
+  Actual 0       59       1
+  Actual 1        4      58
+
+  MAO_B_class [test] (logit thr=-2.55, p=0.0724)
+              Pred 0  Pred 1
+  Actual 0       76      14
+  Actual 1       29      68
+
+  MAO_B_class [val] (logit thr=-2.55, p=0.0724)
+              Pred 0  Pred 1
+  Actual 0      144      27
+  Actual 1       29     102
+
+===== TEST METRICS WITH BOOTSTRAP 95% CIs (n_boot=1000), ECE, Brier =====
+
+       Task   N  AUROC  AUPRC    MCC   Sens   Spec     AUROC_CI95     AUPRC_CI95       MCC_CI95      Sens_CI95      Spec_CI95  ECE_10bin  Brier  Prevalence
+ AChE_class 306 0.9277 0.9632 0.7143 0.8564 0.8739 [0.897, 0.957] [0.945, 0.979] [0.632, 0.797] [0.799, 0.904] [0.814, 0.933]     0.1237 0.1160      0.6373
+BuChE_class 173 0.9661 0.9678 0.8718 0.9368 0.9359 [0.934, 0.990] [0.925, 0.993] [0.790, 0.937] [0.882, 0.980] [0.875, 0.987]     0.0674 0.0594      0.5491
+BACE1_class 531 0.9856 0.9983 0.8066 0.9768 0.8421 [0.976, 0.994] [0.997, 0.999] [0.721, 0.886] [0.962, 0.990] [0.739, 0.932]     0.0298 0.0329      0.8927
+MAO_B_class 187 0.8620 0.8838 0.5493 0.7010 0.8444 [0.809, 0.907] [0.832, 0.927] [0.429, 0.659] [0.610, 0.789] [0.761, 0.915]     0.2256 0.2202      0.5187
+
+NOTE: training used per-task pos_weight, so outputs are class-balanced scores, not prevalence-calibrated probabilities, and the network saturates at 0/1. Report ECE/Brier honestly; calibrate post hoc on validation (e.g., Platt scaling on logits) before using probabilities as RL rewards.
+
+Zip ready: /kaggle/working/AD_MTDL_v1ckpt_corrected_eval.zip
+  AD_MTDL_calibration_bins_test.csv            2.0 KB
+  AD_MTDL_corrected_metadata.json              1.6 KB
+  AD_MTDL_results_corrected.csv                1.2 KB
+  AD_MTDL_test_metrics_with_CI.csv             0.7 KB
+  AD_MTDL_v1_best.ckpt                         4834.8 KB
+  dataset_after_cleaning.csv                   730.8 KB
+  mcc_sweep_curves_val.csv                     105.1 KB
+  split_indices.json                           66.4 KB
+  test_logits.npy                              35.4 KB
+  test_probs_float32.npy                       17.8 KB
+  test_targets.npy                             17.8 KB
+  thresholds.json                              0.6 KB
+  val_logits.npy                               35.4 KB
+  val_probs_float32.npy                        17.8 KB
+  val_targets.npy                              17.8 KB
+
+ALL GATES PASSED. Use thresholds.json (logit + probability) for external validation and the scoring server.
+

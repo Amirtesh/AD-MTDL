@@ -1,0 +1,5 @@
+Target,N_unfiltered,N_identical_to_train,N_identical_same_target,N_similarity_ge_0.85,fraction_excluded,N_primary
+AChE,357,20,0,20,0.056022408963585436,337
+BuChE,280,8,0,8,0.02857142857142857,272
+BACE1,1523,2,0,2,0.0013131976362442547,1521
+MAO_B,593,0,0,0,0.0,593

@@ -34,7 +34,9 @@ SERVER_PORT=8765
 AD_MTDL_ENV="ad_mtdl"
 RESULTS_BASE="campaigns"
 CKPT="AD_MTDL_best.ckpt"
-META="AD_MTDL_metadata.json"
+THRESHOLDS="thresholds.json"
+PLATT="platt.json"
+AD_REFERENCE="AD_reference.npz"
 PRIOR_SCAFFOLD="priors/mol2mol_medium_similarity.prior"
 PRIOR_DENOVO="priors/reinvent.prior"
 
@@ -80,7 +82,7 @@ run_or_dry() {
 # ── Prerequisite checks ───────────────────────────────────
 log "Checking prerequisites..."
 
-for f in "$CKPT" "$META" "$PRIOR_SCAFFOLD" "$PRIOR_DENOVO" "optimize.py"; do
+for f in "$CKPT" "$THRESHOLDS" "$PLATT" "$AD_REFERENCE" "predict.py" "scoring_server.py" "$PRIOR_SCAFFOLD" "$PRIOR_DENOVO" "optimize.py"; do
     if [[ ! -f "$f" ]]; then
         log "ERROR: Required file not found: $f"
         exit 1
@@ -146,7 +148,7 @@ run_campaign() {
         --server_port ${SERVER_PORT} \
         --ad_mtdl_env ${AD_MTDL_ENV} \
         --ckpt ${CKPT} \
-        --meta ${META} \
+        --thresholds ${THRESHOLDS} --platt ${PLATT} --ad_reference ${AD_REFERENCE} \
         --prior_scaffold ${PRIOR_SCAFFOLD} \
         --prior_denovo ${PRIOR_DENOVO} \
         --output ${out_dir} \

@@ -1,0 +1,59 @@
+=======================================================
+ChEMBL 36 — AD Target Data Summary
+Filters: assay_type IN (B,F) | confidence >= 8
+         standard_relation='=' | no duplicates | pChEMBL not null
+Deduplication: median pChEMBL per unique compound
+=======================================================
+
+AChE  (CHEMBL220)
+-------------------------------------------------------
+  Raw measurements (pre-dedup) :  7,066
+  Unique compounds (post-dedup):  5,942
+  pChEMBL  min / median / max  : 4.00 / 5.99 / 10.96
+
+  Class         Count        %
+  ----------------------------
+  Active        1,539    25.9%
+  Moderate      3,239    54.5%
+  Inactive      1,164    19.6%
+  TOTAL         5,942   100.0%
+
+BuChE  (CHEMBL1914)
+-------------------------------------------------------
+  Raw measurements (pre-dedup) :  4,086
+  Unique compounds (post-dedup):  3,680
+  pChEMBL  min / median / max  : 4.00 / 5.89 / 10.67
+
+  Class         Count        %
+  ----------------------------
+  Active          940    25.5%
+  Moderate      1,978    53.8%
+  Inactive        762    20.7%
+  TOTAL         3,680   100.0%
+
+BACE1  (CHEMBL4822)
+-------------------------------------------------------
+  Raw measurements (pre-dedup) : 13,384
+  Unique compounds (post-dedup):  9,987
+  pChEMBL  min / median / max  : 2.35 / 6.91 / 10.96
+
+  Class         Count        %
+  ----------------------------
+  Active        4,740    47.5%
+  Moderate      4,497    45.0%
+  Inactive        750     7.5%
+  TOTAL         9,987   100.0%
+
+MAO-B  (CHEMBL2039)
+-------------------------------------------------------
+  Raw measurements (pre-dedup) :  5,540
+  Unique compounds (post-dedup):  4,704
+  pChEMBL  min / median / max  : 3.40 / 5.83 / 9.87
+
+  Class         Count        %
+  ----------------------------
+  Active          982    20.9%
+  Moderate      2,586    55.0%
+  Inactive      1,136    24.1%
+  TOTAL         4,704   100.0%
+=======================================================

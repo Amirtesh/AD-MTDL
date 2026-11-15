@@ -1,0 +1,44 @@
+Seed set to 42
+Compounds after cleaning: 11,297
+  AChE_class     : Active= 1536  Inactive= 1164  NaN= 8597
+  BuChE_class    : Active=  939  Inactive=  761  NaN= 9597
+  BACE1_class    : Active= 4739  Inactive=  750  NaN= 5808
+  MAO_B_class    : Active=  978  Inactive= 1135  NaN= 9184
+The return type of make_split_indices has changed in v2.1 - see help(make_split_indices)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+
+Split — train: 9,039  val: 1,129  test: 1,129
+
+Class imbalance (train split):
+  AChE_class     : n_pos= 1238  n_neg=  960  pos_weight=0.775
+  BuChE_class    : n_pos=  782  n_neg=  623  pos_weight=0.797
+  BACE1_class    : n_pos= 3786  n_neg=  618  pos_weight=0.200
+  MAO_B_class    : n_pos=  750  n_neg=  874  pos_weight=1.165
+
+Total parameters: 410,104
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+Loading `train_dataloader` to estimate number of stepping batches.
+/usr/local/lib/python3.12/dist-packages/lightning/pytorch/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+┏━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┳━━━━━━━┓
+┃   ┃ Name            ┃ Type                    ┃ Params ┃ Mode  ┃ FLOPs ┃
+┡━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━╇━━━━━━━┩
+│ 0 │ message_passing │ BondMessagePassing      │  227 K │ train │     0 │
+│ 1 │ agg             │ MeanAggregation         │      0 │ train │     0 │
+│ 2 │ bn              │ BatchNorm1d             │    600 │ train │     0 │
+│ 3 │ predictor       │ BinaryClassificationFFN │  181 K │ train │     0 │
+│ 4 │ X_d_transform   │ Identity                │      0 │ train │     0 │
+│ 5 │ metrics         │ ModuleList              │      0 │ train │     0 │
+└───┴─────────────────┴─────────────────────────┴────────┴───────┴───────┘
+Trainable params: 410 K                                                                                            
+Non-trainable params: 0                                                                                            
+Total params: 410 K                                                                                                
+Total estimated model params size (MB): 1.640                                                                      
+Modules in train mode: 27                                                                                          
+Modules in eval mode: 0                                                                                            
+Total FLOPs: 0                                                                                                     
+Epoch 51/74 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 142/142 0:00:05 • 0:00:00 29.55it/s train_loss_step: 0.000 val_loss:  
+                                                                                 0.774 train_loss_epoch: 0.003     
+
+Best checkpoint: /kaggle/working/checkpoints/best-epoch=36-val/prc=0.978.ckpt

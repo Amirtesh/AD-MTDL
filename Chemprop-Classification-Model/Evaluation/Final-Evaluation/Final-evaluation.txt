@@ -1,0 +1,208 @@
+Ground truth (median pChEMBL, training-consistent filters):
+  Total records      : 264
+  Moderate (excluded): 134
+  Usable records     : 130
+
+Compounds reclassified vs MAX-based evaluation:
+  ChEMBL ID        Name                 Target     Median   GT Label
+  -----------------------------------------------------------------
+  CHEMBL104        CLOTRIMAZOLE         AChE        4.710   Inactive
+  CHEMBL1112       ARIPIPRAZOLE         AChE        4.960   Inactive
+  CHEMBL11298      SERINE               AChE        4.420   Inactive
+  CHEMBL11608      TYRAMINE             BACE1       2.700   Inactive
+  CHEMBL117287     PRUCALOPRIDE         AChE        4.570   Inactive
+  CHEMBL1200904    SELEGILINE HYDROCHLORIDE MAO_B       8.175     Active
+  CHEMBL1200970    ETHOPROPAZINE HYDROCHLORIDE AChE        4.610   Inactive
+  CHEMBL1201087    CABERGOLINE          AChE        4.940   Inactive
+  CHEMBL1201092    RIVASTIGMINE TARTRATE AChE        4.945   Inactive
+  CHEMBL1201142    RASAGILINE MESYLATE  MAO_B       7.490     Active
+  CHEMBL1201196    SERTACONAZOLE        AChE        7.000     Active
+  CHEMBL12089      BERBERINE CHLORIDE   BuChE       4.525   Inactive
+  CHEMBL121810     GANSTIGMINE          AChE        7.190     Active
+  CHEMBL1219       RABEPRAZOLE          AChE        4.780   Inactive
+  CHEMBL12208      HYMECROMONE          MAO_B       4.090   Inactive
+  CHEMBL1232461    MOLIBRESIB           MAO_B       4.600   Inactive
+  CHEMBL123248     ESERIDINE            BuChE       7.920     Active
+  CHEMBL1254682    LEVALLORPHAN         AChE        4.780   Inactive
+  CHEMBL129482     (+)-EPICATECHIN      BACE1       4.595   Inactive
+  CHEMBL129837     4-ISOPROPYLPHENSERINE BuChE       7.300     Active
+  CHEMBL1303       ROTIGOTINE           AChE        4.580   Inactive
+  CHEMBL142635     NAFTOPIDIL           AChE        4.580   Inactive
+  CHEMBL14376      ILOPERIDONE          AChE        4.800   Inactive
+  CHEMBL145        CAFFEIC ACID         BACE1       4.780   Inactive
+  CHEMBL1493       FLAVOXATE            AChE        4.750   Inactive
+  CHEMBL150        KAEMPFEROL           AChE        4.030   Inactive
+  CHEMBL150        KAEMPFEROL           BuChE       4.370   Inactive
+  CHEMBL150        KAEMPFEROL           BACE1       4.830   Inactive
+  CHEMBL150365     BAZINAPRINE          AChE        4.000   Inactive
+  CHEMBL151        LUTEOLIN             AChE        4.180   Inactive
+  CHEMBL151        LUTEOLIN             MAO_B       4.220   Inactive
+  CHEMBL1546       HYDROXYAMPHETAMINE   BACE1       3.100   Inactive
+  CHEMBL160347     BROFAROMINE          MAO_B       4.630   Inactive
+  CHEMBL1626223    PYRANTEL             AChE        4.960   Inactive
+  CHEMBL165        RESVERATROL          MAO_B       4.530   Inactive
+  CHEMBL1677       TACRINE HYDROCHLORIDE BuChE       7.400     Active
+  CHEMBL1678       DONEPEZIL HYDROCHLORIDE AChE        7.600     Active
+  CHEMBL1714574    TERCONAZOLE          AChE        4.725   Inactive
+  CHEMBL18116      TOLOXATONE           MAO_B       4.820   Inactive
+  CHEMBL19004      ATIBEPRONE           MAO_B       9.050     Active
+  CHEMBL190461     CANNABIDIOL          AChE        4.770   Inactive
+  CHEMBL19224      PAPAVERINE           AChE        4.610   Inactive
+  CHEMBL1950045    HYDROXYTYROSOL       BACE1       7.460     Active
+  CHEMBL2          PRAZOSIN             AChE        4.620   Inactive
+  CHEMBL211471     NEOSTIGMINE METHYLSULFATE AChE        7.380     Active
+  CHEMBL211471     NEOSTIGMINE METHYLSULFATE BuChE       7.220     Active
+  CHEMBL21536      XANOMELINE           AChE        4.760   Inactive
+  CHEMBL2177913    AZD-3839             BACE1       7.685     Active
+  CHEMBL226335     RUTIN                AChE        7.920     Active
+  CHEMBL226335     RUTIN                BACE1       8.420     Active
+  CHEMBL2396989    LY-2886721           BACE1       7.920     Active
+  CHEMBL242341     FORMONONETIN         MAO_B       4.590   Inactive
+  CHEMBL251940     PERICIAZINE          AChE        4.540   Inactive
+  CHEMBL255231     LADOSTIGIL           AChE        4.390   Inactive
+  CHEMBL255231     LADOSTIGIL           MAO_B       4.430   Inactive
+  CHEMBL269538     HARMINE              AChE        4.950   Inactive
+  CHEMBL278020     NEOSTIGMINE          BuChE       4.580   Inactive
+  CHEMBL278819     MINAPRINE            AChE        4.070   Inactive
+  CHEMBL279390     LAZABEMIDE           MAO_B       7.430     Active
+  CHEMBL284237     DIZOCILPINE          BuChE       4.800   Inactive
+  CHEMBL285802     ZOTEPINE             AChE        4.550   Inactive
+  CHEMBL288441     BOSUTINIB            AChE        4.810   Inactive
+  CHEMBL291233     OBIDOXIME CHLORIDE   AChE        4.385   Inactive
+  CHEMBL311498     CIANIDANOL           BACE1       4.460   Inactive
+  CHEMBL31574      FISETIN              AChE        7.920     Active
+  CHEMBL31574      FISETIN              BuChE       4.050   Inactive
+  CHEMBL3261067    nan                  BACE1       8.150     Active
+  CHEMBL32778      TRIMEDOXIME          AChE        4.210   Inactive
+  CHEMBL329012     ICOPEZIL MALEATE     AChE        9.480     Active
+  CHEMBL3301601    VERUBECESTAT         BACE1       8.660     Active
+  CHEMBL333826     DEQUALINIUM          AChE        7.580     Active
+  CHEMBL338975     PHYSOSTIGMINE SALICYLATE AChE        7.550     Active
+  CHEMBL338975     PHYSOSTIGMINE SALICYLATE BuChE       7.800     Active
+  CHEMBL359570     ICOPEZIL             AChE        9.480     Active
+  CHEMBL360055     GALLAMINE            AChE        4.430   Inactive
+  CHEMBL3670375    nan                  BACE1       8.055     Active
+  CHEMBL3707394    SEMBRAGILINE         MAO_B       8.015     Active
+  CHEMBL3786182    GSK2879552           MAO_B       4.700   Inactive
+  CHEMBL3916243    ATABECESTAT          BACE1       8.960     Active
+  CHEMBL3952064    nan                  BACE1       7.470     Active
+  CHEMBL395280     HUPERZINE A          AChE        7.330     Active
+  CHEMBL395280     HUPERZINE A          BuChE       7.000     Active
+  CHEMBL396778     SAFINAMIDE           MAO_B       7.410     Active
+  CHEMBL3989948    LANABECESTAT         BACE1       8.260     Active
+  CHEMBL399510     BROMOPRIDE           AChE        4.860   Inactive
+  CHEMBL411        DIETHYLSTILBESTROL   AChE        4.590   Inactive
+  CHEMBL417        EPIRUBICIN           AChE        4.770   Inactive
+  CHEMBL4204869    ELENBECESTAT         BACE1       7.860     Active
+  CHEMBL431770     ISTRADEFYLLINE       MAO_B       7.570     Active
+  CHEMBL433041     EPTASTIGMINE         AChE        7.000     Active
+  CHEMBL433041     EPTASTIGMINE         BuChE       8.730     Active
+  CHEMBL444478     ACETOSIDE            BACE1       8.200     Active
+  CHEMBL451635     OBIDOXIME            AChE        4.705   Inactive
+  CHEMBL473        DOFETILIDE           AChE        4.870   Inactive
+  CHEMBL473159     PHLOROGLUCINOL       BACE1       4.440   Inactive
+  CHEMBL4802155    VAFIDEMSTAT          MAO_B       7.140     Active
+  CHEMBL489079     MOFEGILINE           MAO_B       8.300     Active
+  CHEMBL50         QUERCETIN            AChE        4.980   Inactive
+  CHEMBL50         QUERCETIN            BuChE       4.170   Inactive
+  CHEMBL50         QUERCETIN            MAO_B       4.230   Inactive
+  CHEMBL502        DONEPEZIL            AChE        7.660     Active
+  CHEMBL502        DONEPEZIL            MAO_B       4.730   Inactive
+  CHEMBL506        PRIMAQUINE           MAO_B       4.030   Inactive
+  CHEMBL521589     BAMBUTEROL           AChE        4.520   Inactive
+  CHEMBL521589     BAMBUTEROL           BuChE       8.445     Active
+  CHEMBL53418      DANTHRON             MAO_B       4.230   Inactive
+  CHEMBL54126      NEOSTIGMINE BROMIDE  AChE        7.370     Active
+  CHEMBL549        CITALOPRAM           AChE        4.130   Inactive
+  CHEMBL551978     DROTAVERINE          AChE        4.580   Inactive
+  CHEMBL589390     LATREPIRDINE         AChE        4.350   Inactive
+  CHEMBL609109     THIOPROPERAZINE      AChE        4.540   Inactive
+  CHEMBL611        TERAZOSIN            AChE        4.640   Inactive
+  CHEMBL659        GALANTAMINE          BuChE       4.985   Inactive
+  CHEMBL672        FENOFIBRATE          AChE        4.810   Inactive
+  CHEMBL7002       CIGLITAZONE          AChE        4.820   Inactive
+  CHEMBL709        ALFUZOSIN            AChE        7.750     Active
+  CHEMBL748        PRALIDOXIME CHLORIDE AChE        4.550   Inactive
+  CHEMBL779        TADALAFIL            AChE        4.580   Inactive
+  CHEMBL807        MEMANTINE            AChE        7.210     Active
+  CHEMBL808        ECONAZOLE            AChE        4.860   Inactive
+  CHEMBL85         RISPERIDONE          AChE        4.910   Inactive
+  CHEMBL852        MELPHALAN            AChE        4.700   Inactive
+  CHEMBL887        RASAGILINE           AChE        7.720     Active
+  CHEMBL887        RASAGILINE           MAO_B       7.550     Active
+  CHEMBL91         MICONAZOLE           AChE        4.730   Inactive
+  CHEMBL939        GEFITINIB            BACE1       4.700   Inactive
+  CHEMBL94         PHYSOSTIGMINE        AChE        7.105     Active
+  CHEMBL95         TACRINE              BuChE       7.570     Active
+  CHEMBL964        DISULFIRAM           AChE        4.850   Inactive
+  CHEMBL972        SELEGILINE           MAO_B       7.260     Active
+
+Compounds with prediction + corrected ground truth: 115
+
+======================================================================
+  EXTERNAL VALIDATION — CORRECTED (median pChEMBL ground truth)
+======================================================================
+
+  AChE
+  ──────────────────────────────────────────────────
+  N = 70  (Active=18, Inactive=52)
+  AUROC       : 0.9567
+  MCC         : 0.8904
+  Sensitivity : 0.9444
+  Specificity : 0.9615
+  F1 macro    : 0.9449
+  Confusion   : TP=17 FP=2 TN=50 FN=1
+
+  False Negatives:
+    CHEMBL1201196    SERTACONAZOLE                prob=0.5000
+
+  False Positives:
+    CHEMBL672        FENOFIBRATE                  prob=0.7232
+    CHEMBL7002       CIGLITAZONE                  prob=0.7213
+
+  BuChE
+  ──────────────────────────────────────────────────
+  N = 16  (Active=9, Inactive=7)
+  AUROC       : 1.0000
+  MCC         : 1.0000
+  Sensitivity : 1.0000
+  Specificity : 1.0000
+  F1 macro    : 1.0000
+  Confusion   : TP=9 FP=0 TN=7 FN=0
+
+  BACE1
+  ──────────────────────────────────────────────────
+  N = 20  (Active=12, Inactive=8)
+  AUROC       : 1.0000
+  MCC         : 1.0000
+  Sensitivity : 1.0000
+  Specificity : 1.0000
+  F1 macro    : 1.0000
+  Confusion   : TP=12 FP=0 TN=8 FN=0
+
+  MAO_B
+  ──────────────────────────────────────────────────
+  N = 24  (Active=11, Inactive=13)
+  AUROC       : 0.9860
+  MCC         : 0.9199
+  Sensitivity : 1.0000
+  Specificity : 0.9231
+  F1 macro    : 0.9583
+  Confusion   : TP=11 FP=1 TN=12 FN=0
+
+  False Positives:
+    CHEMBL12208      HYMECROMONE                  prob=0.7307
+
+======================================================================
+  SUMMARY
+======================================================================
+         N  Active  Inactive   AUROC     MCC  Sensitivity  Specificity  F1_macro
+Target                                                                          
+AChE    70      18        52  0.9567  0.8904       0.9444       0.9615    0.9449
+BuChE   16       9         7  1.0000  1.0000       1.0000       1.0000    1.0000
+BACE1   20      12         8  1.0000  1.0000       1.0000       1.0000    1.0000
+MAO_B   24      11        13  0.9860  0.9199       1.0000       0.9231    0.9583
+
+Saved: external_validation_corrected_summary.csv
+Saved: external_validation_corrected_results.csv
+

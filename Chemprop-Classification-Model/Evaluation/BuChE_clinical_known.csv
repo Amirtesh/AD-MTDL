@@ -1,0 +1,40 @@
+chembl_id,pref_name,canonical_smiles,max_phase,source,best_pchembl,mechanism_of_action,target,phase_label
+CHEMBL1190,DECAMETHONIUM,C[N+](C)(C)CCCCCCCCCC[N+](C)(C)C,4.0,known_inhibitor,,,BuChE,Approved
+CHEMBL1206,ETHOPROPAZINE,CCN(CC)C(C)CN1c2ccccc2Sc2ccccc21,4.0,known_inhibitor,,,BuChE,Approved
+CHEMBL129837,4-ISOPROPYLPHENSERINE,CC(C)c1ccc(NC(=O)Oc2ccc3c(c2)[C@]2(C)CCN(C)[C@@H]2N3C)cc1,,known_inhibitor,,,BuChE,Unknown
+CHEMBL494887,TETRAISOPROPYL PYROPHOSPHORAMIDE,CC(C)NP(=O)(NC(C)C)OP(=O)(NC(C)C)NC(C)C,,known_inhibitor,,,BuChE,Unknown
+CHEMBL502,DONEPEZIL,COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccc3)CC1)C2,4.0,known_inhibitor,,,BuChE,Approved
+CHEMBL521589,BAMBUTEROL,CN(C)C(=O)Oc1cc(OC(=O)N(C)C)cc(C(O)CNC(C)(C)C)c1,3.0,known_inhibitor,,,BuChE,Phase 3
+CHEMBL636,RIVASTIGMINE,CCN(C)C(=O)Oc1cccc([C@H](C)N(C)C)c1,4.0,known_inhibitor,,,BuChE,Approved
+CHEMBL659,GALANTAMINE,COc1ccc2c3c1O[C@H]1C[C@@H](O)C=C[C@@]31CCN(C)C2,4.0,known_inhibitor,,,BuChE,Approved
+CHEMBL95,TACRINE,Nc1c2c(nc3ccccc13)CCCC2,4.0,known_inhibitor,,,BuChE,Approved
+CHEMBL1677,TACRINE HYDROCHLORIDE,Cl.Nc1c2c(nc3ccccc13)CCCC2,4.0,clinical_activity,7.64,,BuChE,Approved
+CHEMBL211471,NEOSTIGMINE METHYLSULFATE,CN(C)C(=O)Oc1cccc([N+](C)(C)C)c1.COS(=O)(=O)[O-],4.0,clinical_activity,7.22,,BuChE,Approved
+CHEMBL812,PYRIDOSTIGMINE BROMIDE,CN(C)C(=O)Oc1ccc[n+](C)c1.[Br-],4.0,clinical_activity,6.05,,BuChE,Approved
+CHEMBL295124,BERBERINE,COc1ccc2cc3[n+](cc2c1OC)CCc1cc2c(cc1-3)OCO2,4.0,clinical_activity,5.96,,BuChE,Approved
+CHEMBL1294,QUINIDINE,C=C[C@H]1CN2CC[C@H]1C[C@@H]2[C@@H](O)c1ccnc2ccc(OC)cc12,4.0,clinical_activity,5.91,,BuChE,Approved
+CHEMBL1201092,RIVASTIGMINE TARTRATE,CCN(C)C(=O)Oc1cccc([C@H](C)N(C)C)c1.O=C(O)[C@H](O)[C@@H](O)C(=O)O,4.0,clinical_activity,5.84,,BuChE,Approved
+CHEMBL1200970,ETHOPROPAZINE HYDROCHLORIDE,CCN(CC)C(C)CN1c2ccccc2Sc2ccccc21.Cl,4.0,clinical_activity,5.8,,BuChE,Approved
+CHEMBL772,RESERPINE,COC(=O)[C@H]1[C@H]2C[C@@H]3c4[nH]c5cc(OC)ccc5c4CCN3C[C@H]2C[C@@H](OC(=O)c2cc(OC)c(OC)c(OC)c2)[C@@H]1OC,4.0,clinical_activity,5.55,,BuChE,Approved
+CHEMBL1115,PYRIDOSTIGMINE,CN(C)C(=O)Oc1ccc[n+](C)c1,4.0,clinical_activity,5.46,,BuChE,Approved
+CHEMBL887,RASAGILINE,C#CCN[C@@H]1CCc2ccccc21,4.0,clinical_activity,5.32,,BuChE,Approved
+CHEMBL1678,DONEPEZIL HYDROCHLORIDE,COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccc3)CC1)C2.Cl,4.0,clinical_activity,5.14,,BuChE,Approved
+CHEMBL278020,NEOSTIGMINE,CN(C)C(=O)Oc1cccc([N+](C)(C)C)c1,4.0,clinical_activity,4.79,,BuChE,Approved
+CHEMBL94,PHYSOSTIGMINE,CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)[C@@H]1N2C,3.0,clinical_activity,7.82,,BuChE,Phase 3
+CHEMBL310671,SACCHARIN,O=C1NS(=O)(=O)c2ccccc21,3.0,clinical_activity,5.44,,BuChE,Phase 3
+CHEMBL51085,EBSELEN,O=c1c2ccccc2[se]n1-c1ccccc1,3.0,clinical_activity,5.34,,BuChE,Phase 3
+CHEMBL589390,LATREPIRDINE,Cc1ccc2c(c1)c1c(n2CCc2ccc(C)nc2)CCN(C)C1,3.0,clinical_activity,5.1,,BuChE,Phase 3
+CHEMBL50,QUERCETIN,O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,3.0,clinical_activity,4.17,,BuChE,Phase 3
+CHEMBL433041,EPTASTIGMINE,CCCCCCCNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)[C@@H]1N2C,2.0,clinical_activity,9.16,,BuChE,Phase 2
+CHEMBL123248,ESERIDINE,CNC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)O[C@@H]1N2C,2.0,clinical_activity,7.92,,BuChE,Phase 2
+CHEMBL395280,HUPERZINE A,C/C=C1\[C@H]2C=C(C)C[C@]1(N)c1ccc(=O)[nH]c1C2,2.0,clinical_activity,7.0,,BuChE,Phase 2
+CHEMBL121810,GANSTIGMINE,CCc1ccccc1NC(=O)Oc1ccc2c(c1)[C@]1(C)CCN(C)O[C@@H]1N2C,2.0,clinical_activity,6.51,,BuChE,Phase 2
+CHEMBL54126,NEOSTIGMINE BROMIDE,CN(C)C(=O)Oc1cccc([N+](C)(C)C)c1.[Br-],2.0,clinical_activity,6.1,,BuChE,Phase 2
+CHEMBL828,PHENOTHIAZINE,c1ccc2c(c1)Nc1ccccc1S2,2.0,clinical_activity,5.24,,BuChE,Phase 2
+CHEMBL417799,SANGUINARIUM,C[n+]1cc2c3c(ccc2c2ccc4cc5c(cc4c21)OCO5)OCO3,2.0,clinical_activity,5.15,,BuChE,Phase 2
+CHEMBL329012,ICOPEZIL MALEATE,O=C(O)/C=C\C(=O)O.O=C1Cc2cc3c(CCC4CCN(Cc5ccccc5)CC4)noc3cc2N1,2.0,clinical_activity,5.14,,BuChE,Phase 2
+CHEMBL284237,DIZOCILPINE,C[C@]12N[C@H](Cc3ccccc31)c1ccccc12,2.0,clinical_activity,4.8,,BuChE,Phase 2
+CHEMBL31574,FISETIN,O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)ccc12,2.0,clinical_activity,4.05,,BuChE,Phase 2
+CHEMBL12089,BERBERINE CHLORIDE,COc1ccc2cc3[n+](cc2c1OC)CCc1cc2c(cc1-3)OCO2.[Cl-],1.0,clinical_activity,4.72,,BuChE,Phase 1
+CHEMBL150,KAEMPFEROL,O=c1c(O)c(-c2ccc(O)cc2)oc2cc(O)cc(O)c12,1.0,clinical_activity,4.37,,BuChE,Phase 1
+CHEMBL2105345,PROPANIDID,CCCOC(=O)Cc1ccc(OCC(=O)N(CC)CC)c(OC)c1,4.0,drug_mechanism,,Butyrylcholinesterase inhibitor,BuChE,Approved

@@ -1,0 +1,2 @@
+original_index,smiles,AChE_prob,AChE_pred,BuChE_prob,BuChE_pred,BACE1_prob,BACE1_pred,MAO_B_prob,MAO_B_pred,n_active
+0,CCOc1ccc(NC(=O)c2cccc(Cl)c2)cc1,0.7277,Active,0.7023,Active,0.6888,Active,0.7296,Active,4

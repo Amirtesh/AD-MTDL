@@ -1,0 +1,16 @@
+campaign,targets,seed_idx,smiles,rule,AChE_margin,AChE_ad,min_dist_to_other_seeds,BuChE_margin,BuChE_ad,BACE1_margin,BACE1_ad,MAO_B_margin,MAO_B_ad
+AChE,AChE,1,CN(Cc1ccccc1)Cc1ccc(C(=O)NCCc2c[nH]c3cc(F)ccc23)cc1,0,-0.501,high,0.943,,,,,,
+AChE,AChE,2,CC1=CC2Cc3nc4oc(C)c(C)c4c(N)c3C(C1)C2,0,-1.713,high,0.947,,,,,,
+AChE,AChE,3,CN[C@H]1CC[C@@]2(C)C(CC[C@H]3[C@@H]4CC[C@H]([C@H](C)N(C)C)[C@@]4(C)CC[C@@H]32)C1,0,-9.102,high,0.943,,,,,,
+BuChE,BuChE,1,Cc1cccc(CN2CCC(CC(=O)NCCc3c[nH]c4ccccc34)CC2)c1,0,,,0.923,-0.524,high,,,,
+BuChE,BuChE,2,Nc1c2c(nc3ccc(F)cc13)CCCCC2,0,,,0.929,-0.99,high,,,,
+BuChE,BuChE,3,c1cncc(-c2nnc3sc(-c4ccco4)nn23)c1,0,,,0.923,-13.458,high,,,,
+BACE1,BACE1,1,CCNc1cc(C(=O)N[C@@H](Cc2ccccc2)[C@H](O)CN[C@H]2CCc3ccccc32)cc(N2CCCC2=O)c1,0,,,0.905,,,-0.514,high,,
+BACE1,BACE1,2,NC1=NC2(CO1)c1cc(-c3cncnc3)ccc1OCC21CC1,0,,,0.944,,,-2.497,high,,
+BACE1,BACE1,3,CN1C(=N)N[C@](CCC2CCCCC2)(C[C@H]2CCCNC2)C1=O,0,,,0.905,,,-3.602,high,,
+MAO_B,MAO_B,1,COc1cccc(/C=C/C(=O)c2ccccc2O)c1,0,,,0.945,,,,,-0.504,high
+MAO_B,MAO_B,2,Clc1ccc(-c2ccc([C@H]3C[C@@H]3NCCC3CCOCC3)cc2)cc1,0,,,0.948,,,,,-1.065,high
+MAO_B,MAO_B,3,N#Cc1ccc(Sc2ccc(Br)cc2)cc1,0,,,0.945,,,,,-1.565,high
+AChE_BACE1,AChE BACE1,1,Cc1ccc(CNC2CCN(Cc3ccccc3)C2)cc1,1,-0.182,high,0.618,,,-1.739,medium,,
+AChE_BACE1,AChE BACE1,2,CC(C)=CCc1c(-c2ccc(O)cc2O)oc2c(CC=C(C)C)c(O)cc(O)c2c1=O,1,-1.645,medium,0.919,,,-2.929,medium,,
+AChE_BACE1,AChE BACE1,3,COc1ccccc1NCC1CCN(Cc2ccccc2)CC1,1,-0.454,high,0.618,,,-1.224,medium,,

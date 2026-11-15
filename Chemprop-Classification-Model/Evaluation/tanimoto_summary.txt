@@ -1,0 +1,68 @@
+══════════════════════════════════════════════════════════════════════
+  AD TANIMOTO OVERLAP REPORT  (v1.2.0)
+  Total eval compounds analysed: 237
+══════════════════════════════════════════════════════════════════════
+
+── OVERALL SIMILARITY STATISTICS ──
+  Metric                                        Value
+  ----------------------------------------------------
+  Mean  max Tanimoto (same-target)              0.47
+  Median max Tanimoto (same-target)             0.32
+  Std   max Tanimoto (same-target)              0.29
+  % Memorised  (≥ 0.85)                        18.57%
+  % Similar    (0.60–0.85)                      9.28%
+  % Analogous  (0.40–0.60)                     11.81%
+  % Novel      (< 0.40)                        60.34%
+
+── PER-TARGET SIMILARITY STATISTICS ──
+  Target         N    Mean   Median  Mem≥.85  Sim≥.60  Novel<.40
+  --------------------------------------------------------------
+  AChE         165   0.431    0.310    12.7%    24.2%      64.2%
+  BuChE          5   0.357    0.207    20.0%    20.0%      80.0%
+  BACE1         25   0.598    0.429    44.0%    44.0%      48.0%
+  MAO_B         42   0.536    0.417    26.2%    33.3%      50.0%
+
+── ZONE BREAKDOWN (all targets) ──
+  Memorised  (≥ 0.85)            44  ( 18.6%)  █████████
+  Similar    (0.60–0.85)         22  (  9.3%)  ████
+  Analogous  (0.40–0.60)         28  ( 11.8%)  █████
+  Novel      (< 0.40)           143  ( 60.3%)  ██████████████████████████████
+
+── ZONE BREAKDOWN PER TARGET ──
+
+  AChE  (n=165)
+    Memorised  (≥ 0.85)            21  ( 12.7%)
+    Similar    (0.60–0.85)         19  ( 11.5%)
+    Analogous  (0.40–0.60)         19  ( 11.5%)
+    Novel      (< 0.40)           106  ( 64.2%)
+
+  BuChE  (n=5)
+    Memorised  (≥ 0.85)             1  ( 20.0%)
+    Similar    (0.60–0.85)          0  (  0.0%)
+    Analogous  (0.40–0.60)          0  (  0.0%)
+    Novel      (< 0.40)             4  ( 80.0%)
+
+  BACE1  (n=25)
+    Memorised  (≥ 0.85)            11  ( 44.0%)
+    Similar    (0.60–0.85)          0  (  0.0%)
+    Analogous  (0.40–0.60)          2  (  8.0%)
+    Novel      (< 0.40)            12  ( 48.0%)
+
+  MAO_B  (n=42)
+    Memorised  (≥ 0.85)            11  ( 26.2%)
+    Similar    (0.60–0.85)          3  (  7.1%)
+    Analogous  (0.40–0.60)          7  ( 16.7%)
+    Novel      (< 0.40)            21  ( 50.0%)
+
+══════════════════════════════════════════════════════════════════════
+  INTERPRETATION GUIDE
+  Memorised  (≥ 0.85) : near-identical to a training compound.
+                         Model almost certainly saw this scaffold.
+                         Good recall expected; not a true gen. test.
+  Similar    (0.60–0.85): same chemotype with variation.
+                         Predictions generally reliable.
+  Analogous  (0.40–0.60): related scaffold, some novelty.
+                         Moderate confidence; model interpolating.
+  Novel      (< 0.40) : structurally distant from all training data.
+                         Extrapolation — treat predictions cautiously.
+══════════════════════════════════════════════════════════════════════

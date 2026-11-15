@@ -1,0 +1,18 @@
+Wrote AChE_chembl36.csv  (5,941 compounds)
+Wrote BuChE_chembl36.csv  (3,678 compounds)
+Wrote BACE1_chembl36.csv  (9,987 compounds)
+Wrote MAO_B_chembl36.csv  (4,699 compounds)
+
+Wrote AD_MTDL_combined_chembl36.csv  (21,389 unique compounds)
+
+Coverage breakdown:
+  AChE_class          :  5,939 measured  |  15,450 NaN
+  BuChE_class         :  3,675 measured  |  17,714 NaN
+  BACE1_class         :  9,986 measured  |  11,403 NaN
+  MAO_B_class         :  4,699 measured  |  16,690 NaN
+
+Multi-target compound counts:
+  Present in 1 target(s): 18,690
+  Present in 2 target(s):  2,492
+  Present in 3 target(s):    203
+  Present in 4 target(s):      4

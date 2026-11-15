@@ -1,0 +1,52 @@
+chembl_id,pref_name,canonical_smiles,max_phase,source,best_pchembl,mechanism_of_action,target,phase_label
+CHEMBL1089,PHENELZINE,NNCCc1ccccc1,4,known_inhibitor,,,MAO_B,Approved
+CHEMBL279390,LAZABEMIDE,NCCNC(=O)c1ccc(Cl)cn1,2,known_inhibitor,,,MAO_B,Phase 2
+CHEMBL3707394,SEMBRAGILINE,CC(=O)N[C@H]1CC(=O)N(c2ccc(OCc3cccc(F)c3)cc2)C1,2,known_inhibitor,,,MAO_B,Phase 2
+CHEMBL396778,SAFINAMIDE,C[C@H](NCc1ccc(OCc2cccc(F)c2)cc1)C(N)=O,4,known_inhibitor,,,MAO_B,Approved
+CHEMBL3989843,TRANYLCYPROMINE,N[C@@H]1C[C@H]1c1ccccc1.N[C@H]1C[C@@H]1c1ccccc1,4,known_inhibitor,,,MAO_B,Approved
+CHEMBL673,PARGYLINE,C#CCN(C)Cc1ccccc1,4,known_inhibitor,,,MAO_B,Approved
+CHEMBL86304,MOCLOBEMIDE,O=C(NCCN1CCOCC1)c1ccc(Cl)cc1,4,known_inhibitor,,,MAO_B,Approved
+CHEMBL887,RASAGILINE,C#CCN[C@@H]1CCc2ccccc21,4,known_inhibitor,,,MAO_B,Approved
+CHEMBL972,SELEGILINE,C#CCN(C)[C@H](C)Cc1ccccc1,4,known_inhibitor,,,MAO_B,Approved
+CHEMBL1200904,SELEGILINE HYDROCHLORIDE,C#CCN(C)[C@H](C)Cc1ccccc1.Cl,4,clinical_activity,8.18,,MAO_B,Approved
+CHEMBL1201142,RASAGILINE MESYLATE,C#CCN[C@@H]1CCc2ccccc21.CS(=O)(=O)O,4,clinical_activity,7.85,,MAO_B,Approved
+CHEMBL431770,ISTRADEFYLLINE,CCn1c(=O)c2c(nc(/C=C/c3ccc(OC)c(OC)c3)n2C)n(CC)c1=O,4,clinical_activity,7.57,,MAO_B,Approved
+CHEMBL595,PIOGLITAZONE,CCc1ccc(CCOc2ccc(CC3SC(=O)NC3=O)cc2)nc1,4,clinical_activity,6.7,,MAO_B,Approved
+CHEMBL590,MENADIONE,CC1=CC(=O)c2ccccc2C1=O,4,clinical_activity,6.4,,MAO_B,Approved
+CHEMBL126,LINEZOLID,CC(=O)NC[C@H]1CN(c2ccc(N3CCOCC3)c(F)c2)C(=O)O1,4,clinical_activity,6.21,,MAO_B,Approved
+CHEMBL121,ROSIGLITAZONE,CN(CCOc1ccc(CC2SC(=O)NC2=O)cc1)c1ccccn1,4,clinical_activity,6.08,,MAO_B,Approved
+CHEMBL408,TROGLITAZONE,Cc1c(C)c2c(c(C)c1O)CCC(C)(COc1ccc(CC3SC(=O)NC3=O)cc1)O2,4,clinical_activity,5.68,,MAO_B,Approved
+CHEMBL750,ZONISAMIDE,NS(=O)(=O)Cc1noc2ccccc12,4,clinical_activity,5.51,,MAO_B,Approved
+CHEMBL191083,METHYLENE BLUE CATION,CN(C)c1ccc2nc3ccc(=[N+](C)C)cc-3sc2c1,4,clinical_activity,5.36,,MAO_B,Approved
+CHEMBL91,MICONAZOLE,Clc1ccc(COC(Cn2ccnc2)c2ccc(Cl)cc2Cl)c(Cl)c1,4,clinical_activity,4.88,,MAO_B,Approved
+CHEMBL18116,TOLOXATONE,Cc1cccc(N2CC(CO)OC2=O)c1,4,clinical_activity,4.82,,MAO_B,Approved
+CHEMBL502,DONEPEZIL,COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccc3)CC1)C2,4,clinical_activity,4.82,,MAO_B,Approved
+CHEMBL104,CLOTRIMAZOLE,Clc1ccccc1C(c1ccccc1)(c1ccccc1)n1ccnc1,4,clinical_activity,4.51,,MAO_B,Approved
+CHEMBL53418,DANTHRON,O=C1c2cccc(O)c2C(=O)c2c(O)cccc21,4,clinical_activity,4.23,,MAO_B,Approved
+CHEMBL506,PRIMAQUINE,COc1cc(NC(C)CCCN)c2ncccc2c1,4,clinical_activity,4.03,,MAO_B,Approved
+CHEMBL10316,IDAZOXAN,c1ccc2c(c1)OCC(C1=NCCN1)O2,3,clinical_activity,6.0,,MAO_B,Phase 3
+CHEMBL140,CURCUMIN,COc1cc(/C=C/C(=O)CC(=O)/C=C/c2ccc(O)c(OC)c2)ccc1O,3,clinical_activity,5.59,,MAO_B,Phase 3
+CHEMBL165,RESVERATROL,Oc1ccc(/C=C/c2cc(O)cc(O)c2)cc1,3,clinical_activity,5.3,,MAO_B,Phase 3
+CHEMBL1257051,TEDIZOLID,Cn1nnc(-c2ccc(-c3ccc(N4C[C@H](CO)OC4=O)cc3F)cn2)n1,3,clinical_activity,5.24,,MAO_B,Phase 3
+CHEMBL50,QUERCETIN,O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,3,clinical_activity,4.41,,MAO_B,Phase 3
+CHEMBL19004,ATIBEPRONE,Cc1c(C)c2ccc(OCc3nnc(C(C)C)s3)cc2oc1=O,2,clinical_activity,9.05,,MAO_B,Phase 2
+CHEMBL489079,MOFEGILINE,NC/C(=C/F)CCc1ccc(F)cc1,2,clinical_activity,8.7,,MAO_B,Phase 2
+CHEMBL8706,CLORGILINE,C#CCN(C)CCCOc1ccc(Cl)cc1Cl,2,clinical_activity,8.66,,MAO_B,Phase 2
+CHEMBL4802155,VAFIDEMSTAT,Nc1nnc(CN[C@@H]2C[C@H]2c2ccc(OCc3ccccc3)cc2)o1,2,clinical_activity,7.14,,MAO_B,Phase 2
+CHEMBL7002,CIGLITAZONE,CC1(COc2ccc(CC3SC(=O)NC3=O)cc2)CCCCC1,2,clinical_activity,6.65,,MAO_B,Phase 2
+CHEMBL43185,PIPERINE,O=C(/C=C/C=C/c1ccc2c(c1)OCO2)N1CCCCC1,2,clinical_activity,6.32,,MAO_B,Phase 2
+CHEMBL44,GENISTEIN,O=c1c(-c2ccc(O)cc2)coc2cc(O)cc(O)c12,2,clinical_activity,6.19,,MAO_B,Phase 2
+CHEMBL288149,SUTEZOLID,CC(=O)NC[C@H]1CN(c2ccc(N3CCSCC3)c(F)c2)C(=O)O1,2,clinical_activity,6.16,,MAO_B,Phase 2
+CHEMBL92401,IPRONIAZID,CC(C)NNC(=O)c1ccncc1,2,clinical_activity,6.01,,MAO_B,Phase 2
+CHEMBL442687,TIOXOLONE,O=c1oc2cc(O)ccc2s1,2,clinical_activity,5.02,,MAO_B,Phase 2
+CHEMBL160347,BROFAROMINE,COc1cc(Br)c2oc(C3CCNCC3)cc2c1,2,clinical_activity,4.63,,MAO_B,Phase 2
+CHEMBL1232461,MOLIBRESIB,CCNC(=O)C[C@@H]1N=C(c2ccc(Cl)cc2)c2cc(OC)ccc2-n2c(C)nnc21,2,clinical_activity,4.6,,MAO_B,Phase 2
+CHEMBL242341,FORMONONETIN,COc1ccc(-c2coc3cc(O)ccc3c2=O)cc1,2,clinical_activity,4.59,,MAO_B,Phase 2
+CHEMBL255231,LADOSTIGIL,C#CCN[C@@H]1CCc2ccc(OC(=O)N(C)CC)cc21,2,clinical_activity,4.43,,MAO_B,Phase 2
+CHEMBL151,LUTEOLIN,O=c1cc(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,2,clinical_activity,4.22,,MAO_B,Phase 2
+CHEMBL12208,HYMECROMONE,Cc1cc(=O)oc2cc(O)ccc12,2,clinical_activity,4.09,,MAO_B,Phase 2
+CHEMBL5095023,LS-104,N#C/C(=C\C=C\c1ccc(O)c(O)c1)C(=O)NCc1ccccc1,1,clinical_activity,5.94,,MAO_B,Phase 1
+CHEMBL3786182,GSK2879552,O=C(O)c1ccc(CN2CCC(CN[C@@H]3C[C@H]3c3ccccc3)CC2)cc1,1,clinical_activity,4.7,,MAO_B,Phase 1
+CHEMBL48582,SAFINAMIDE MESYLATE,CS(=O)(=O)O.C[C@H](NCc1ccc(OCc2cccc(F)c2)cc1)C(N)=O,4,drug_mechanism,,Monoamine oxidase B inhibitor,MAO_B,Approved
+CHEMBL6067988,RASAGILINE TARTRATE,C#CCN[C@@H]1CCc2ccccc21.C#CCN[C@@H]1CCc2ccccc21.O=C(O)[C@H](O)[C@@H](O)C(=O)O,4,drug_mechanism,,Monoamine oxidase B inhibitor,MAO_B,Approved
+CHEMBL2107771,RALFINAMIDE,C[C@H](NCc1ccc(OCc2ccccc2F)cc1)C(N)=O,3,drug_mechanism,,Monoamine oxidase B inhibitor,MAO_B,Phase 3

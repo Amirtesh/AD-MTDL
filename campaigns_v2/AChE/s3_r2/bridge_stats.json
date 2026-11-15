@@ -1,0 +1,9 @@
+{
+  "calls": 1868,
+  "molecules": 12820,
+  "invalid_smiles": 0,
+  "failed_calls": 0,
+  "failed_molecules": 0,
+  "retries": 0,
+  "server_invalid": 0
+}

@@ -1,0 +1,76 @@
+{
+  "timestamp": "20261108_043739",
+  "mode": "scaffold_hop",
+  "seed_smiles": "CN(Cc1ccccc1)Cc1ccc(C(=O)NCCc2c[nH]c3cc(F)ccc23)cc1",
+  "seed_file": null,
+  "targets": [
+    "AChE"
+  ],
+  "target_cols": [
+    "AChE_class"
+  ],
+  "thresholds_used": {
+    "AChE": -0.5
+  },
+  "weights": null,
+  "tanimoto_weight": 0.0,
+  "steps": 2000,
+  "batch_size": 64,
+  "min_score": 0.4,
+  "top_k": 1000,
+  "elapsed_min": 599.13,
+  "n_results": 1000,
+  "rng_seed": 1,
+  "server_stats": {
+    "ad_counts": {
+      "AChE": {
+        "high": 1177,
+        "low": 41706,
+        "medium": 73926
+      },
+      "BACE1": {
+        "high": 0,
+        "low": 116304,
+        "medium": 505
+      },
+      "BuChE": {
+        "high": 258,
+        "low": 46088,
+        "medium": 70463
+      },
+      "MAO_B": {
+        "high": 2995,
+        "low": 43232,
+        "medium": 70582
+      }
+    },
+    "failed_requests": 0,
+    "invalid_molecules": 0,
+    "molecules": 116809,
+    "requests": 2001,
+    "seconds": 744.7616212368011
+  },
+  "seed_scores": {
+    "AChE": {
+      "margin": -0.5014444250934831,
+      "logit": -2.675417423248291,
+      "ad_level": 2.0
+    }
+  },
+  "provenance": {
+    "ad_reference_sha256": "1a96260b1888d506e8df3048688ff6547b0c2b8174e04ed25e33ea038694840d",
+    "checkpoint": "AD_MTDL_best.ckpt",
+    "checkpoint_sha256": "22d4cc44c5bda9d8fb2b0726e6e56091527db623dbb8fd93fe041f9cc7bb66f9",
+    "platt_sha256": "217905da1c38757a5dbe25828562f66e8b694b4e781a0e3c6b0cd229a1395636",
+    "predict_sha256": "b2018a853deb5eaa86358bb39473449550487862e149bb661957ec42181c1cd2",
+    "server_sha256": "f282da1ed731a6e4ed6504ca588ace30e4949abebeb66a4eecbde0439232c98c",
+    "thresholds_sha256": "a7eda24e1d6f64b40b6eece2e58a3ac384a81ea97f49dbd29b6c95ac38551082",
+    "torch_threads": 2
+  },
+  "reward": {
+    "quantity": "margin",
+    "low": -3.0,
+    "high": 3.0,
+    "k": 0.25
+  }
+}

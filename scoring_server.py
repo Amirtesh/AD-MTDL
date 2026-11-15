@@ -1,192 +1,135 @@
-# scoring_server.py
-# Runs in: ad_mtdl env (Python 3.11, ChemProp 2.2.3, Flask)
-# Start: python scoring_server.py --ckpt AD_MTDL_best.ckpt --meta AD_MTDL_metadata.json
-# Stays alive for entire REINVENT4 run
+#!/usr/bin/env python
+"""
+scoring_server.py (v2) - HTTP bridge between the ChemProp v2 AD-MTDL classifier and REINVENT4.
 
-import argparse
-import json
-import logging
-import os
-import sys
-import warnings
+Runs in the ad_mtdl env (ChemProp 2.2.x). Uses the SAME inference + applicability-domain code as validation
+(predict.py), so the bridge cannot drift from what was evaluated:
+  - scores are raw logits (predictor.train_step); there is NO sigmoid anywhere except in the calibrated probability field
+  - no silent fallback scores: invalid molecules are flagged, failed requests return HTTP 500
+  - every request is counted (/stats); optional per-molecule log for post-hoc analysis
+
+Start:  python scoring_server.py --port 8765 --threads 8 [--log-molecules run1_scored.csv]
+"""
+import argparse, atexit, json, logging, threading, time
+from pathlib import Path
 
 import numpy as np
 import torch
-import torch.nn.functional as F
-import torch.serialization
 from flask import Flask, jsonify, request
-from rdkit import Chem, RDLogger
+from scipy.special import expit
 
-warnings.filterwarnings("ignore")
-RDLogger.DisableLog("rdApp.*")
+from predict import ADMTDLPredictor, TARGETS, sha256_file
 
-from chemprop import data, featurizers, models
-from chemprop import nn as cpnn
-from chemprop.nn import BCELoss as ChempropBCELoss
+HERE = Path(__file__).resolve().parent
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [SERVER] %(message)s", datefmt="%H:%M:%S")
+log = logging.getLogger("scoring_server")
+LEVEL_CODE = {"low": 0, "medium": 1, "high": 2}
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [SERVER] %(message)s",
-    datefmt="%H:%M:%S",
-)
-log = logging.getLogger(__name__)
-
-
-# ── WeightedBCELoss — required for checkpoint loading ─────
-class WeightedBCELoss(ChempropBCELoss):
-    def __init__(self, pos_weight=None):
-        super().__init__()
-        if pos_weight is not None:
-            self.register_buffer("pos_weight", pos_weight)
-
-    def _calc_unreduced_loss(self, preds, targets, *args, **kwargs):
-        return F.binary_cross_entropy_with_logits(
-            preds, targets, reduction="none",
-            pos_weight=self.pos_weight.to(preds.device),
-        )
-
-
-# ── Global state ──────────────────────────────────────────
-_MODEL      = None
-_FEATURIZER = None
-_TARGETS    = None
-_THRESHOLDS = None
-_DEVICE     = torch.device("cpu")
-_BATCH_SIZE = 128
-
-
-def load_model(ckpt_path: str, meta_path: str, n_threads: int):
-    global _MODEL, _FEATURIZER, _TARGETS, _THRESHOLDS
-
-    torch.set_num_threads(n_threads)
-    log.info(f"PyTorch CPU threads: {n_threads}")
-
-    for label, path in [("checkpoint", ckpt_path), ("metadata", meta_path)]:
-        if not os.path.exists(path):
-            log.error(f"{label} not found: {path}")
-            sys.exit(1)
-
-    with open(meta_path) as f:
-        meta = json.load(f)
-
-    _TARGETS    = meta["targets"]
-    _THRESHOLDS = meta["optimal_thresholds"]
-
-    torch.serialization.add_safe_globals([
-        WeightedBCELoss,
-        cpnn.metrics.BinaryAUPRC,
-        cpnn.metrics.BinaryAUROC,
-    ])
-
-    _MODEL = models.MPNN.load_from_checkpoint(
-        ckpt_path, map_location=_DEVICE, strict=False
-    )
-    _MODEL.eval()
-
-    _FEATURIZER = featurizers.SimpleMoleculeMolGraphFeaturizer()
-
-    log.info(f"Model loaded: {ckpt_path}")
-    log.info(f"Targets    : {_TARGETS}")
-    log.info(f"Thresholds : {_THRESHOLDS}")
-
-
-def _run_inference(smiles_list: list[str]) -> dict:
-    """
-    Returns dict: target_col -> [prob, ...] for each input SMILES.
-    Invalid SMILES get prob=0.5 (model uncertainty default).
-    """
-    valid_idx, valid_smi = [], []
-    for i, smi in enumerate(smiles_list):
-        if Chem.MolFromSmiles(str(smi)) is not None:
-            valid_idx.append(i)
-            valid_smi.append(smi)
-
-    n = len(smiles_list)
-    result = {t: [0.5] * n for t in _TARGETS}
-    result["valid_mask"] = [False] * n
-
-    if not valid_smi:
-        return result
-
-    dummy_y    = np.zeros((len(valid_smi), len(_TARGETS)), dtype=np.float32)
-    datapoints = [
-        data.MoleculeDatapoint.from_smi(smi, y)
-        for smi, y in zip(valid_smi, dummy_y)
-    ]
-    dataset = data.MoleculeDataset(datapoints, _FEATURIZER)
-    loader  = data.build_dataloader(
-        dataset,
-        shuffle=False,
-        batch_size=min(_BATCH_SIZE, len(dataset)),
-        num_workers=0,
-        drop_last=False,
-    )
-
-    all_probs = []
-    with torch.no_grad():
-        for batch in loader:
-            bmg, X_vd, features, targets, weights, lt_mask, gt_mask = batch
-            bmg.V          = bmg.V.to(_DEVICE)
-            bmg.E          = bmg.E.to(_DEVICE)
-            bmg.edge_index = bmg.edge_index.to(_DEVICE)
-            bmg.batch      = bmg.batch.to(_DEVICE)
-            logits = _MODEL(bmg, X_vd, features)
-            probs  = torch.sigmoid(logits).cpu().numpy()
-            all_probs.append(probs)
-
-    all_probs = np.vstack(all_probs)
-
-    for t_idx, target in enumerate(_TARGETS):
-        for rank, orig_idx in enumerate(valid_idx):
-            result[target][orig_idx] = float(all_probs[rank, t_idx])
-            result["valid_mask"][orig_idx] = True
-
-    return result
-
-
-# ── Flask app ─────────────────────────────────────────────
 app = Flask(__name__)
+_P = None            # ADMTDLPredictor
+_PLATT = {}          # target -> (a, b)
+_PROV = {}
+_LOCK = threading.Lock()
+_STATS = {"requests": 0, "molecules": 0, "invalid_molecules": 0, "failed_requests": 0, "seconds": 0.0,
+          "ad_counts": {t: {"low": 0, "medium": 0, "high": 0} for t in TARGETS}}
+_ARGS = None
+_LOGGED_HEADER = False
+
+
+def _clean(arr):
+    """JSON-safe list: NaN/inf -> None."""
+    return [float(x) if np.isfinite(x) else None for x in np.asarray(arr, dtype=float)]
+
+
+def load(args):
+    global _P, _PLATT, _PROV
+    torch.set_num_threads(args.threads)
+    _P = ADMTDLPredictor(args.ckpt, args.thresholds, args.ad_reference)
+    platt = json.load(open(args.platt))["targets"]
+    _PLATT = {t: (float(platt[t]["a"]), float(platt[t]["b"])) for t in TARGETS}
+    _PROV = {"checkpoint": str(args.ckpt), "checkpoint_sha256": sha256_file(args.ckpt),
+             "ad_reference_sha256": sha256_file(args.ad_reference), "thresholds_sha256": sha256_file(args.thresholds),
+             "platt_sha256": sha256_file(args.platt), "server_sha256": sha256_file(__file__),
+             "predict_sha256": sha256_file(HERE / "predict.py"), "torch_threads": args.threads}
+    log.info("loaded | logit thresholds %s | platt slopes %s",
+             {t: round(_P.thr[t], 3) for t in TARGETS}, {t: round(_PLATT[t][0], 3) for t in TARGETS})
 
 
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({
-        "status"    : "ok",
-        "targets"   : _TARGETS,
-        "thresholds": _THRESHOLDS,
-    })
+    return jsonify({"status": "ok", "targets": TARGETS, "logit_thresholds": _P.thr,
+                    "platt": {t: {"a": a, "b": b} for t, (a, b) in _PLATT.items()},
+                    "quantities": ["margin", "logit", "prob_platt", "ad_level", "ad_struct_sim", "ad_embed_sim"],
+                    "provenance": _PROV})
+
+
+@app.route("/stats", methods=["GET"])
+def stats():
+    return jsonify(_STATS)
 
 
 @app.route("/score", methods=["POST"])
 def score():
-    """
-    POST {"smiles": ["CCO", ...]}
-    Returns per-target probabilities for all input SMILES.
-    """
-    payload = request.get_json(force=True)
-    smiles  = payload.get("smiles", [])
+    """POST {"smiles": [...]} -> {"valid": [...], "targets": {T: {margin, logit, prob_platt, ad_level, ad_*_sim}}}.
+    margin = platt_slope * (logit - frozen_logit_threshold): 0 at the decision boundary, calibrated log-odds relative to it.
+    ad_level: 0 low / 1 medium / 2 high. Invalid molecules are valid=False with null scores (never a fake number)."""
+    global _LOGGED_HEADER
+    smiles = request.get_json(force=True).get("smiles", [])
     if not smiles:
         return jsonify({"error": "no smiles provided"}), 400
+    t0 = time.time()
+    try:
+        with _LOCK:
+            df = _P.predict(smiles, batch_size=_ARGS.batch)
+    except Exception as exc:
+        _STATS["failed_requests"] += 1
+        log.exception("scoring failed")
+        return jsonify({"error": f"{type(exc).__name__}: {exc}"}), 500
 
-    preds = _run_inference(smiles)
-    return jsonify(preds)
+    valid = df["valid"].to_numpy(bool)
+    out = {"valid": valid.tolist(), "targets": {}}
+    for t in TARGETS:
+        z = df[f"{t}_logit"].to_numpy(float); a, b = _PLATT[t]
+        lvl = df[f"{t}_ad_level"].map(LEVEL_CODE).astype(float).to_numpy()
+        out["targets"][t] = {
+            "logit": _clean(z), "margin": _clean(a * (z - _P.thr[t])), "prob_platt": _clean(expit(a * z + b)),
+            "ad_level": _clean(lvl), "ad_struct_sim": _clean(df[f"{t}_ad_struct_sim"]),
+            "ad_embed_sim": _clean(df[f"{t}_ad_embed_sim"])}
+
+    _STATS["requests"] += 1; _STATS["molecules"] += len(smiles); _STATS["invalid_molecules"] += int((~valid).sum())
+    _STATS["seconds"] += time.time() - t0
+    for t in TARGETS:                      # applicability-domain mix per target, over valid molecules only
+        lv = np.array(out["targets"][t]["ad_level"], dtype=float)
+        for k, name in enumerate(("low", "medium", "high")):
+            _STATS["ad_counts"][t][name] += int(np.sum(lv == k))
+    if _ARGS.log_molecules:
+        rec = df[["smiles", "valid"] + [f"{t}_{c}" for t in TARGETS for c in ("logit", "ad_level")]].copy()
+        rec.insert(0, "request", _STATS["requests"])
+        with _LOCK:
+            rec.to_csv(_ARGS.log_molecules, mode="a", header=not _LOGGED_HEADER, index=False)
+            _LOGGED_HEADER = True
+    if _STATS["requests"] % 100 == 0:
+        log.info("requests=%d molecules=%d invalid=%d failed=%d avg=%.2fs", _STATS["requests"], _STATS["molecules"],
+                 _STATS["invalid_molecules"], _STATS["failed_requests"], _STATS["seconds"] / _STATS["requests"])
+    return jsonify(out)
 
 
-
-# ── Entry point ───────────────────────────────────────────
 def parse_args():
-    p = argparse.ArgumentParser(description="AD MTDL scoring server")
-    p.add_argument("--ckpt",    default="AD_MTDL_best.ckpt")
-    p.add_argument("--meta",    default="AD_MTDL_metadata.json")
-    p.add_argument("--port",    type=int, default=8765)
-    p.add_argument("--threads", type=int, default=64,
-                   help="PyTorch CPU inference threads")
+    p = argparse.ArgumentParser(description="AD-MTDL scoring server (v2)")
+    p.add_argument("--ckpt", default=str(HERE / "AD_MTDL_v1_best.ckpt"))
+    p.add_argument("--thresholds", default=str(HERE / "thresholds.json"))
+    p.add_argument("--ad-reference", default=str(HERE / "AD_reference.npz"))
+    p.add_argument("--platt", default=str(HERE / "platt.json"))
+    p.add_argument("--port", type=int, default=8765)
+    p.add_argument("--threads", type=int, default=8, help="torch CPU threads for THIS server")
+    p.add_argument("--batch", type=int, default=128)
+    p.add_argument("--log-molecules", default=None, help="append every scored molecule (SMILES, logits, AD level) to this CSV")
     return p.parse_args()
 
 
 if __name__ == "__main__":
-    args = parse_args()
-    load_model(args.ckpt, args.meta, args.threads)
-    log.info(f"Listening on port {args.port}")
-    app.run(host="127.0.0.1", port=args.port, threaded=True)
-
+    _ARGS = parse_args()
+    load(_ARGS)
+    atexit.register(lambda: log.info("final stats: %s", json.dumps(_STATS)))
+    log.info("listening on 127.0.0.1:%d", _ARGS.port)
+    app.run(host="127.0.0.1", port=_ARGS.port, threaded=True)

@@ -1,0 +1,31 @@
+chembl_id,pref_name,canonical_smiles,max_phase,source,best_pchembl,mechanism_of_action,target,phase_label
+CHEMBL2333941,LY-2811376,C[C@@]1(c2cc(-c3cncnc3)c(F)cc2F)CCSC(N)=N1,1.0,known_inhibitor,,,BACE1,Phase 1
+CHEMBL2396989,LY-2886721,NC1=N[C@@]2(c3cc(NC(=O)c4ccc(F)cn4)ccc3F)COC[C@H]2CS1,1.0,known_inhibitor,,,BACE1,Phase 1
+CHEMBL3261067,,Cc1cc(C#N)cnc1C(=O)Nc1ccc(F)c([C@]2(C)CO[C@@](C)(C(F)(F)F)C(N)=N2)c1,,known_inhibitor,,,BACE1,Unknown
+CHEMBL3301601,VERUBECESTAT,CN1C(N)=N[C@](C)(c2cc(NC(=O)c3ccc(F)cn3)ccc2F)CS1(=O)=O,3.0,known_inhibitor,,,BACE1,Phase 3
+CHEMBL3670375,,C[C@@]1(c2nc(NC(=O)c3ncc(C(F)(F)F)cc3Cl)ccc2F)CO[C@@](C)(C(F)(F)F)C(N)=N1,,known_inhibitor,,,BACE1,Unknown
+CHEMBL3916243,ATABECESTAT,C[C@@]1(c2cc(NC(=O)c3ccc(C#N)cn3)ccc2F)C=CSC(N)=N1,2.0,known_inhibitor,,,BACE1,Phase 2
+CHEMBL3952064,,C[C@H]1C[C@H]2CSC(N)=N[C@@]2(c2nc(NC(=O)c3ccc(OC(F)F)cn3)cs2)CO1,,known_inhibitor,,,BACE1,Unknown
+CHEMBL3989948,LANABECESTAT,CC#Cc1cncc(-c2ccc3c(c2)[C@@]2(N=C(C)C(N)=N2)[C@]2(CC[C@H](OC)CC2)C3)c1,3.0,known_inhibitor,,,BACE1,Phase 3
+CHEMBL4204869,ELENBECESTAT,C[C@H]1OC[C@]2(c3cc(NC(=O)c4cnc(C(F)F)cn4)ccc3F)N=C(N)SC[C@H]12,3.0,known_inhibitor,,,BACE1,Phase 3
+CHEMBL502,DONEPEZIL,COc1cc2c(cc1OC)C(=O)C(CC1CCN(Cc3ccccc3)CC1)C2,4.0,clinical_activity,7.75,,BACE1,Approved
+CHEMBL76,CHLOROQUINE,CCN(CC)CCCC(C)Nc1ccnc2cc(Cl)ccc12,4.0,clinical_activity,5.16,,BACE1,Approved
+CHEMBL939,GEFITINIB,COc1cc2ncnc(Nc3ccc(F)c(Cl)c3)c2cc1OCCCN1CCOCC1,4.0,clinical_activity,4.7,,BACE1,Approved
+CHEMBL311498,CIANIDANOL,Oc1cc(O)c2c(c1)O[C@H](c1ccc(O)c(O)c1)[C@@H](O)C2,4.0,clinical_activity,4.46,,BACE1,Approved
+CHEMBL1546,HYDROXYAMPHETAMINE,CC(N)Cc1ccc(O)cc1,4.0,clinical_activity,3.1,,BACE1,Approved
+CHEMBL226335,RUTIN,C[C@@H]1O[C@@H](OC[C@H]2O[C@@H](Oc3c(-c4ccc(O)c(O)c4)oc4cc(O)cc(O)c4c3=O)[C@H](O)[C@@H](O)[C@@H]2O)[C@H](O)[C@H](O)[C@H]1O,3.0,clinical_activity,8.42,,BACE1,Phase 3
+CHEMBL1950045,HYDROXYTYROSOL,OCCc1ccc(O)c(O)c1,3.0,clinical_activity,7.46,,BACE1,Phase 3
+CHEMBL50,QUERCETIN,O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,3.0,clinical_activity,6.26,,BACE1,Phase 3
+CHEMBL297453,EPIGALOCATECHIN GALLATE,O=C(O[C@@H]1Cc2c(O)cc(O)cc2O[C@@H]1c1cc(O)c(O)c(O)c1)c1cc(O)c(O)c(O)c1,3.0,clinical_activity,6.12,,BACE1,Phase 3
+CHEMBL140,CURCUMIN,COc1cc(/C=C/C(=O)CC(=O)/C=C/c2ccc(O)c(OC)c2)ccc1O,3.0,clinical_activity,5.28,,BACE1,Phase 3
+CHEMBL145,CAFFEIC ACID,O=C(O)/C=C/c1ccc(O)c(O)c1,3.0,clinical_activity,4.78,,BACE1,Phase 3
+CHEMBL473159,PHLOROGLUCINOL,Oc1cc(O)cc(O)c1,3.0,clinical_activity,4.44,,BACE1,Phase 3
+CHEMBL11608,TYRAMINE,NCCc1ccc(O)cc1,3.0,clinical_activity,2.7,,BACE1,Phase 3
+CHEMBL444478,ACETOSIDE,C[C@@H]1O[C@@H](O[C@@H]2[C@@H](O)[C@H](OCCc3ccc(O)c(O)c3)O[C@H](CO)[C@H]2OC(=O)/C=C/c2ccc(O)c(O)c2)[C@H](O)[C@H](O)[C@H]1O,2.0,clinical_activity,8.2,,BACE1,Phase 2
+CHEMBL151,LUTEOLIN,O=c1cc(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12,2.0,clinical_activity,6.28,,BACE1,Phase 2
+CHEMBL6246,ELLAGIC ACID,O=c1oc2c(O)c(O)cc3c(=O)oc4c(O)c(O)cc1c4c23,2.0,clinical_activity,5.41,,BACE1,Phase 2
+CHEMBL583912,(-)-EPICATECHIN,Oc1cc(O)c2c(c1)O[C@H](c1ccc(O)c(O)c1)[C@H](O)C2,2.0,clinical_activity,5.35,,BACE1,Phase 2
+CHEMBL1483796,SPICLOMAZINE,O=C1CSC2(CCN(CCCN3c4ccccc4Sc4ccc(Cl)cc43)CC2)N1,2.0,clinical_activity,5.18,,BACE1,Phase 2
+CHEMBL129482,(+)-EPICATECHIN,Oc1cc(O)c2c(c1)O[C@@H](c1ccc(O)c(O)c1)[C@@H](O)C2,2.0,clinical_activity,4.64,,BACE1,Phase 2
+CHEMBL2177913,AZD-3839,NC1=N[C@@](c2cccc(-c3cncnc3)c2)(c2ccnc(C(F)F)c2)c2cccc(F)c21,1.0,clinical_activity,9.22,,BACE1,Phase 1
+CHEMBL150,KAEMPFEROL,O=c1c(O)c(-c2ccc(O)cc2)oc2cc(O)cc(O)c12,1.0,clinical_activity,4.83,,BACE1,Phase 1

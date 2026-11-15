@@ -1,0 +1,84 @@
+{
+  "timestamp": "20261109_063700",
+  "mode": "scaffold_hop",
+  "seed_smiles": "CC(C)=CCc1c(-c2ccc(O)cc2O)oc2c(CC=C(C)C)c(O)cc(O)c2c1=O",
+  "seed_file": null,
+  "targets": [
+    "AChE",
+    "BACE1"
+  ],
+  "target_cols": [
+    "AChE_class",
+    "BACE1_class"
+  ],
+  "thresholds_used": {
+    "AChE": -0.5,
+    "BACE1": -0.4
+  },
+  "weights": null,
+  "tanimoto_weight": 0.0,
+  "steps": 2000,
+  "batch_size": 64,
+  "min_score": 0.4,
+  "top_k": 1000,
+  "elapsed_min": 377.87,
+  "n_results": 970,
+  "rng_seed": 2,
+  "server_stats": {
+    "ad_counts": {
+      "AChE": {
+        "high": 13,
+        "low": 265,
+        "medium": 13038
+      },
+      "BACE1": {
+        "high": 0,
+        "low": 13050,
+        "medium": 266
+      },
+      "BuChE": {
+        "high": 4,
+        "low": 580,
+        "medium": 12732
+      },
+      "MAO_B": {
+        "high": 28,
+        "low": 7118,
+        "medium": 6170
+      }
+    },
+    "failed_requests": 0,
+    "invalid_molecules": 0,
+    "molecules": 13316,
+    "requests": 1850,
+    "seconds": 166.6967625617981
+  },
+  "seed_scores": {
+    "AChE": {
+      "margin": -1.6450366037750705,
+      "logit": -7.6366658210754395,
+      "ad_level": 1.0
+    },
+    "BACE1": {
+      "margin": -2.92884030295026,
+      "logit": -8.922385215759277,
+      "ad_level": 1.0
+    }
+  },
+  "provenance": {
+    "ad_reference_sha256": "1a96260b1888d506e8df3048688ff6547b0c2b8174e04ed25e33ea038694840d",
+    "checkpoint": "AD_MTDL_best.ckpt",
+    "checkpoint_sha256": "22d4cc44c5bda9d8fb2b0726e6e56091527db623dbb8fd93fe041f9cc7bb66f9",
+    "platt_sha256": "217905da1c38757a5dbe25828562f66e8b694b4e781a0e3c6b0cd229a1395636",
+    "predict_sha256": "b2018a853deb5eaa86358bb39473449550487862e149bb661957ec42181c1cd2",
+    "server_sha256": "f282da1ed731a6e4ed6504ca588ace30e4949abebeb66a4eecbde0439232c98c",
+    "thresholds_sha256": "a7eda24e1d6f64b40b6eece2e58a3ac384a81ea97f49dbd29b6c95ac38551082",
+    "torch_threads": 2
+  },
+  "reward": {
+    "quantity": "margin",
+    "low": -3.0,
+    "high": 3.0,
+    "k": 0.25
+  }
+}

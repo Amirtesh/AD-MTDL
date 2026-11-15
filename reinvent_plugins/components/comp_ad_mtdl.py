@@ -1,43 +1,42 @@
-# reinvent_plugins/components/comp_ad_mtdl.py
+# reinvent_plugins/components/comp_ad_mtdl.py  (v2)
 #
-# REINVENT4 contrib plugin — AD Multi-Target Drug Design Oracle
-# Bridges ChemProp v2.x multi-task classifier to REINVENT4 4.x via HTTP.
-# This resolves the ChemProp v1.x / v2.x incompatibility in REINVENT4.
+# REINVENT4 contrib plugin: HTTP bridge to the ChemProp v2 AD-MTDL scoring server.
 #
-# INSTALL:
-#   Place this file at:
-#     ~/AD-RL/reinvent_plugins/components/comp_ad_mtdl.py
-#   No __init__.py needed (native namespace package).
-#   REINVENT4 discovers it via:
-#     export PYTHONPATH=~/AD-RL
+# What changed vs v1
+#   * No silent fallback scores. Invalid molecules and failed requests return NaN (REINVENT's convention for
+#     "could not be scored"), and the two causes are counted separately.
+#   * Fail fast: the server must be reachable at init; MAX_CONSECUTIVE_FAILED_CALLS failed batches abort the run
+#     instead of letting it continue on garbage.
+#   * Each endpoint chooses WHICH server quantity it returns (param "quantity"), so diagnostics (raw logit,
+#     applicability-domain level) can ride along as zero-weight endpoints and appear in REINVENT's output CSV.
+#   * Failure statistics are written to ADMTDL_bridge_stats.json (path via env ADMTDL_BRIDGE_STATS).
 #
-# REQUIRES:
-#   scoring_server.py must be running in ad_mtdl env before REINVENT4 starts.
-#
-# TOML usage (one endpoint per target):
+# TOML (one endpoint per quantity; weight = 0 only displays a column and does not affect the aggregate):
 #
 #   [[stage.scoring.component]]
 #   [stage.scoring.component.ADMTDLOracle]
-#
 #   [[stage.scoring.component.ADMTDLOracle.endpoint]]
-#   name = "AChE_activity"
+#   name = "AChE margin"
 #   weight = 1.0
-#   [stage.scoring.component.ADMTDLOracle.endpoint.params]
-#   target = "AChE_class"
-#   server_url = "http://127.0.0.1:8765"
-#
+#   params.target = "AChE_class"
+#   params.quantity = "margin"
+#   params.server_url = "http://127.0.0.1:8765"
 #   [[stage.scoring.component.ADMTDLOracle.endpoint]]
-#   name = "BACE1_activity"
-#   weight = 1.0
-#   [stage.scoring.component.ADMTDLOracle.endpoint.params]
-#   target = "BACE1_class"
-#   server_url = "http://127.0.0.1:8765"
+#   name = "AChE AD level"
+#   weight = 0.0
+#   params.target = "AChE_class"
+#   params.quantity = "ad_level"
+#   params.server_url = "http://127.0.0.1:8765"
 
 __all__ = ["ADMTDLOracle"]
 
-from dataclasses import dataclass
-from typing import List
+import atexit
+import json
 import logging
+import os
+import time
+from dataclasses import dataclass
+from typing import List, Optional
 
 import numpy as np
 import requests
@@ -48,136 +47,121 @@ from .add_tag import add_tag
 
 logger = logging.getLogger("reinvent")
 
-VALID_TARGETS  = {"AChE_class", "BuChE_class", "BACE1_class", "MAO_B_class"}
-REQUEST_TIMEOUT = 180  # seconds — generous for CPU inference on large batches
+VALID_TARGETS = {"AChE_class", "BuChE_class", "BACE1_class", "MAO_B_class"}
+VALID_QUANTITIES = {"margin", "logit", "prob_platt", "ad_level", "ad_struct_sim", "ad_embed_sim"}
+REQUEST_TIMEOUT = 180
+MAX_RETRIES = 3
+MAX_CONSECUTIVE_FAILED_CALLS = 5
+INIT_RETRIES, INIT_WAIT = 10, 3.0
+STATS_PATH = os.environ.get("ADMTDL_BRIDGE_STATS", "ADMTDL_bridge_stats.json")
+
+_STATS = {"calls": 0, "molecules": 0, "invalid_smiles": 0, "failed_calls": 0, "failed_molecules": 0,
+          "retries": 0, "server_invalid": 0}
+
+
+def _write_stats():
+    try:
+        with open(STATS_PATH, "w") as f:
+            json.dump(_STATS, f, indent=2)
+    except OSError:
+        pass
+
+
+atexit.register(_write_stats)
 
 
 @add_tag("__parameters")
 @dataclass
 class Parameters:
-    """
-    REINVENT4 collects params from ALL endpoints into lists.
-    With 2 endpoints, params.target = ["AChE_class", "BACE1_class"].
-    """
-    target:     List[str]
+    """REINVENT collects params from ALL endpoints into lists (one entry per endpoint)."""
+    target: List[str]
     server_url: List[str]
+    quantity: Optional[List[str]] = None
 
 
 @add_tag("__component")
 class ADMTDLOracle:
-    """
-    Multi-target AD activity oracle backed by ChemProp v2.x.
-
-    One HTTP call per batch regardless of number of target endpoints.
-    Invalid SMILES receive default score 0.5 (model uncertainty).
-    """
+    """One HTTP call per batch regardless of how many endpoints are configured."""
 
     def __init__(self, params: Parameters):
-        self.targets    = params.target
-        # All endpoints share the same server; take first URL
+        self.targets = params.target
+        self.quantities = params.quantity or ["margin"] * len(self.targets)
         self.server_url = params.server_url[0].rstrip("/")
+        if len(self.quantities) != len(self.targets):
+            raise ValueError("ADMTDLOracle: 'quantity' must be given on every endpoint or on none")
+        bad_t = [t for t in self.targets if t not in VALID_TARGETS]
+        bad_q = [q for q in self.quantities if q not in VALID_QUANTITIES]
+        if bad_t or bad_q:
+            raise ValueError(f"ADMTDLOracle: unknown targets {bad_t} / quantities {bad_q}. "
+                             f"Valid: {sorted(VALID_TARGETS)} / {sorted(VALID_QUANTITIES)}")
+        self._consecutive_failures = 0
+        self.number_of_endpoints = len(self.targets)   # REINVENT checks one score array per endpoint
 
-        # Validate target names at startup — fail fast
-        invalid = [t for t in self.targets if t not in VALID_TARGETS]
-        if invalid:
-            raise ValueError(
-                f"ADMTDLOracle: unknown targets {invalid}. "
-                f"Valid: {sorted(VALID_TARGETS)}"
-            )
+        info, last = None, None
+        for _ in range(INIT_RETRIES):
+            try:
+                r = requests.get(f"{self.server_url}/health", timeout=10)
+                r.raise_for_status()
+                info = r.json()
+                break
+            except Exception as exc:
+                last = exc
+                time.sleep(INIT_WAIT)
+        if info is None:
+            raise RuntimeError(f"ADMTDLOracle: scoring server not reachable at {self.server_url} "
+                               f"after {INIT_RETRIES} attempts ({last}). Start scoring_server.py first.")
+        logger.info(f"ADMTDLOracle: connected to {self.server_url}")
+        logger.info(f"ADMTDLOracle: endpoints = {list(zip(self.targets, self.quantities))}")
+        logger.info(f"ADMTDLOracle: server provenance = {json.dumps(info.get('provenance', {}))}")
 
-        # Confirm server is reachable before RL starts
-        try:
-            r = requests.get(
-                f"{self.server_url}/health", timeout=10
-            )
-            r.raise_for_status()
-            info = r.json()
-            logger.info(
-                f"ADMTDLOracle: connected to scoring server "
-                f"at {self.server_url}"
-            )
-            logger.info(
-                f"ADMTDLOracle: server targets = {info.get('targets')}"
-            )
-            logger.info(
-                f"ADMTDLOracle: active targets  = {self.targets}"
-            )
-        except Exception as exc:
-            # Warn but don't crash init — server might start between
-            # init and first __call__
-            logger.warning(
-                f"ADMTDLOracle: cannot reach server at "
-                f"{self.server_url} during init: {exc}. "
-                f"Ensure scoring_server.py is running."
-            )
+    def _post(self, smiles):
+        last = None
+        for attempt in range(MAX_RETRIES):
+            try:
+                resp = requests.post(f"{self.server_url}/score", json={"smiles": smiles}, timeout=REQUEST_TIMEOUT)
+                resp.raise_for_status()
+                return resp.json()
+            except Exception as exc:
+                last = exc
+                _STATS["retries"] += 1
+                logger.warning(f"ADMTDLOracle: request failed (attempt {attempt + 1}/{MAX_RETRIES}): {exc}")
+                time.sleep(2 ** attempt)
+        raise last
 
     def __call__(self, smilies: List[str]) -> ComponentResults:
-        """
-        Score a batch of SMILES. Called once per RL step by REINVENT4.
-
-        Makes ONE HTTP request for all targets simultaneously.
-        Returns ComponentResults with one score array per endpoint.
-        """
         n = len(smilies)
+        arrays = [np.full(n, np.nan, dtype=np.float32) for _ in self.targets]
+        _STATS["calls"] += 1
+        _STATS["molecules"] += n
 
-        # Separate valid / invalid SMILES up front
-        valid_mask    = [Chem.MolFromSmiles(str(s)) is not None for s in smilies]
-        valid_smiles  = [s for s, v in zip(smilies, valid_mask) if v]
-        valid_indices = [i for i, v in enumerate(valid_mask) if v]
+        valid_idx = [i for i, s in enumerate(smilies) if Chem.MolFromSmiles(str(s)) is not None]
+        _STATS["invalid_smiles"] += n - len(valid_idx)
+        if not valid_idx:
+            return ComponentResults(arrays)
 
-        # Default: 0.5 for invalid SMILES (mid-range, model uncertainty)
-        scores_per_target = {
-            t: np.full(n, 0.5, dtype=np.float32)
-            for t in self.targets
-        }
-
-        if not valid_smiles:
-            logger.warning("ADMTDLOracle: no valid SMILES in batch")
-            return ComponentResults(
-                [scores_per_target[t] for t in self.targets]
-            )
-
-        # Single HTTP call — server scores all targets at once
         try:
-            resp = requests.post(
-                f"{self.server_url}/score",
-                json={"smiles": valid_smiles},
-                timeout=REQUEST_TIMEOUT,
-            )
-            resp.raise_for_status()
-            preds = resp.json()
-
-            # Map scores back to original batch positions
-            for target in self.targets:
-                if target not in preds:
-                    logger.warning(
-                        f"ADMTDLOracle: target '{target}' "
-                        f"missing from server response"
-                    )
-                    continue
-                target_preds = preds[target]
-                for rank, orig_idx in enumerate(valid_indices):
-                    scores_per_target[target][orig_idx] = float(
-                        target_preds[rank]
-                    )
-
-        except requests.exceptions.ConnectionError:
-            logger.error(
-                f"ADMTDLOracle: lost connection to scoring server at "
-                f"{self.server_url}. Returning default scores (0.5)."
-            )
-        except requests.exceptions.Timeout:
-            logger.error(
-                f"ADMTDLOracle: request timed out ({REQUEST_TIMEOUT}s). "
-                f"Consider reducing batch_size in TOML."
-            )
+            preds = self._post([smilies[i] for i in valid_idx])
+            self._consecutive_failures = 0
         except Exception as exc:
-            logger.error(
-                f"ADMTDLOracle: unexpected error: {exc}. "
-                f"Returning default scores."
-            )
+            _STATS["failed_calls"] += 1
+            _STATS["failed_molecules"] += len(valid_idx)
+            self._consecutive_failures += 1
+            logger.error(f"ADMTDLOracle: batch could not be scored ({exc}); returning NaN for {len(valid_idx)} molecules.")
+            _write_stats()
+            if self._consecutive_failures >= MAX_CONSECUTIVE_FAILED_CALLS:
+                raise RuntimeError(f"ADMTDLOracle: {self._consecutive_failures} consecutive failed batches; aborting run.")
+            return ComponentResults(arrays)
 
-        return ComponentResults(
-            [scores_per_target[t] for t in self.targets]
-        )
+        server_valid = preds.get("valid", [True] * len(valid_idx))
+        _STATS["server_invalid"] += int(sum(1 for v in server_valid if not v))
+        for k, (target, quantity) in enumerate(zip(self.targets, self.quantities)):
+            vals = preds["targets"][target[:-len("_class")]][quantity]
+            for rank, orig in enumerate(valid_idx):
+                v = vals[rank]
+                if v is not None and server_valid[rank]:
+                    arrays[k][orig] = float(v)
 
+        if _STATS["calls"] % 100 == 0:
+            _write_stats()
+            logger.info(f"ADMTDLOracle stats: {_STATS}")
+        return ComponentResults(arrays)

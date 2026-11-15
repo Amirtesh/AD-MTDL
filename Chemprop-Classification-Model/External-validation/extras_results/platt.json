@@ -1,0 +1,37 @@
+{
+  "note": "Platt scaling fit on validation logits; AUROC and the ranking are unchanged (a>0). Calibrated probabilities reflect validation prevalence and are not guaranteed on sets with different prevalence.",
+  "targets": {
+    "AChE": {
+      "a": 0.230504922749371,
+      "b": 0.23522805924154927,
+      "fit_set": "validation",
+      "val_prevalence": 0.5255102040816326,
+      "frozen_threshold_logit": -0.5,
+      "frozen_threshold_calibrated_prob": 0.5299579731361619
+    },
+    "BuChE": {
+      "a": 0.4310892468677556,
+      "b": -0.3155563536231949,
+      "fit_set": "validation",
+      "val_prevalence": 0.5081967213114754,
+      "frozen_threshold_logit": 3.2,
+      "frozen_threshold_calibrated_prob": 0.7434407111601193
+    },
+    "BACE1": {
+      "a": 0.3436643884078788,
+      "b": 0.6271812943787247,
+      "fit_set": "validation",
+      "val_prevalence": 0.8646209386281588,
+      "frozen_threshold_logit": -0.4,
+      "frozen_threshold_calibrated_prob": 0.620039418315463
+    },
+    "MAO_B": {
+      "a": 0.15296613293378425,
+      "b": 0.3690418887387789,
+      "fit_set": "validation",
+      "val_prevalence": 0.4337748344370861,
+      "frozen_threshold_logit": -2.55,
+      "frozen_threshold_calibrated_prob": 0.4947447559684672
+    }
+  }
+}
